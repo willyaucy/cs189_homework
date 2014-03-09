@@ -20,7 +20,7 @@ for method=3:3
     else
         X = binarizeMat(Xtrain);
     end
-    for i=1:1
+    for i=1:numIter
         %fprintf('\ncalculating new mu and betas at iteration %d\n', i);
         %clear mu;
         %mu = []; %reinitialize mu
