@@ -11,7 +11,7 @@ else
     numIter = 100;
 end
 
-for method=3:3
+for method=2:2
     figure();
     if method == 1
         X = standardizeMatCols(Xtrain);
