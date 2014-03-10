@@ -7,7 +7,7 @@ mu = zeros();
 if useSDescent
     numIter = 3;
 else
-    numIter = 100;
+    numIter = 1000;
 end
 
 for method=2:2
@@ -82,7 +82,7 @@ function gradient=getGradient(betaRV, l, X, y, mu)
     %disp(size(mu));
     %fprintf( 'size of y' );
     %disp(size(y));
-    gradient = 2*betaRV'*l - X'*(y-mu);
+    gradient = 2*norm(betaRV)*l - X'*(y-mu);
     %fprintf( 'size of the gradient %d %d\n', size(gradient) );
     %fprintf( 'Finished getGradient().\n' );
     
