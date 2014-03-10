@@ -23,12 +23,12 @@ for i=1:fold_size:num_samples;
             hits = hits+1;
         end
     end
-    fprintf('Accuracy at loop: %d\n', i)
-    fprintf('num_hits: %d / total: %d\n', hits, num_tests)
-    hits / num_tests
-    accuracy(i) = hits / num_tests;
+    fprintf('Accuracy at loop: %d\n', i);
+    fprintf('num_hits: %d / total: %d\n', hits, num_tests);
+    fprintf('Accuracy: %f\n\n', hits / num_tests); %just for tighter output
+    accuracy(floor(i/fold_size)+1) = hits / num_tests;
 end
-
+accuracy = mean(accuracy);
 
 % x: feature vector
 % betaRV: it's the beta :P
