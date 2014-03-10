@@ -37,6 +37,7 @@ for t=1:2;
                     numIter = 1000; %Exact number of iterations
                 end
                 accuracy = zeros(num_folds,1);
+                fprintf('lambda = %f, Stochastic = %d, Rho = %f, numIter = %d\n', lambdas(1,i), useSDescent, rhos(1,j), numIter);
                 for f=1:fold_size:num_samples;
                     test_upperbound = min(f+fold_size-1, num_samples);
                     xtest = Xtrain(f:test_upperbound,:);
@@ -52,10 +53,10 @@ for t=1:2;
                                 hits = hits+1;
                             end
                         end
-                        fprintf(' --- Accuracy at fold %d: %f\n', floor(f/fold_size)+1, hits / num_tests);
+                        %fprintf(' --- Accuracy at fold %d: %f\n', floor(f/fold_size)+1, hits / num_tests);
                         accuracy(floor(f/fold_size)+1) = hits / num_tests;
                     end
-                    break; %comment this out to get the result for all 10 folds.
+                    %break; %comment this out to get the result for all 10 folds.
                 end
                 fprintf('Cross-validation accuracy: %f\n', mean(accuracy));
             end
