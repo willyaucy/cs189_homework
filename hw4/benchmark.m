@@ -55,6 +55,7 @@ for t=1:2;
                         fprintf(' --- Accuracy at fold %d: %f\n', floor(f/fold_size)+1, hits / num_tests);
                         accuracy(floor(f/fold_size)+1) = hits / num_tests;
                     end
+                    break; %comment this out to get the result for all 10 folds.
                 end
                 fprintf('Cross-validation accuracy: %f\n', mean(accuracy));
             end
