@@ -28,7 +28,7 @@ end
 if changeRho == true || rho ~= -1
     figure();
     title( sprintf('Method %d, lambda = %f, Stochastic = %d, Rho = %f, numIter = %d, changingRHO = %d', method, l, useSDescent, rho, realNumIter, changeRho) );
-    fprintf('\nMethod %d, lambda = %d, Stochastic = %d, Rho = %d, numIter = %d, changingRHO = %d:\n', method, l, useSDescent, rho, realNumIter, changeRho);
+    fprintf('\nMethod %d, lambda = %f, Stochastic = %d, Rho = %f, numIter = %d, changingRHO = %d:\n', method, l, useSDescent, rho, realNumIter, changeRho);
     if method == 1
         X = standardizeMatCols(Xtrain);
         disp('Preprocessing by standardizing matrix...\n');
