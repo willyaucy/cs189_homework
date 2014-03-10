@@ -27,7 +27,7 @@ for t=1:2;
                 ytest = ytrain(1:test_upperbound);
                 xtrain_fold = Xtrain(test_upperbound+1:num_samples,:);
                 ytrain_fold = ytrain(test_upperbound+1:num_samples);
-                betaRV = train(xtrain_fold, ytrain_fold, method, lambdas(1,i), useSDescent, rhos(1,j), numIter);
+                betaRV = train(xtest, ytest, method, lambdas(1,i), useSDescent, rhos(1,j), numIter);
                 if isempty(betaRV) == 0 %if it is empty it means we returned incorrectly/intendedly
                     hits = 0;
                     num_tests = length(ytest);
