@@ -129,12 +129,3 @@ function regularizedNll=getNll(betaRV, l, y, mu)
     regularizedNll = loss - ll;
     %disp(regularizedNll);
     %fprintf( 'Finished getNll().\n' );
-
-% x: feature vector
-% betaRV: it's the beta :P
-% bias
-% return predicted label for the sample
-function prediction=predictor(x, betaRV, bias)
-    prediction = 1/(1+exp(betaRV*x+bias));
-
-function accuracy=benchmark(x, y, betaRV, bias)
