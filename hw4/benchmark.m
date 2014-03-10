@@ -8,17 +8,17 @@ ytrain = ytrain(perm);
 num_folds = 10;
 fold_size = floor(num_samples / 10);
 accuracy = zeros(num_folds,1);
-lambdas = [0.1 0.01 0.5 0.05 2];
-rhos = [-1 0.01 0.001 0.002 0.005 0.0001 0.0002 0.00001];
+lambdas = [0.1];
+rhos = [0.001];
 useSDescent = true;
 
 standardizedX = standardizeMatCols(Xtrain);
 transformedX = transformMat(Xtrain);
 binarizedX = binarizeMat(Xtrain);
 
-for t=1:2;
+for t=3:3;
     useSDescent = ~useSDescent;
-    for method=1:3;
+    for method=3:3;
         if method == 1
             Xtrain = standardizedX;
             disp('Preprocessing by standardizing matrix...\n');
@@ -68,7 +68,7 @@ end
 % bias
 % return 1 if x is predicted to be a spam
 function prediction=predictor(x, betaRV, bias)
-    prediction = 1/(1+exp(betaRV*transpose(x)+bias)) < 0.5;
+    prediction = 1/(1+exp(-1*betaRV*transpose(x)+bias)) > 0.5;
 
 function stdMatrix=standardizeMatCols(X)
 X = X - repmat( mean(X, 1), size(X, 1), 1 );
