@@ -19,7 +19,7 @@ for i=1:fold_size:num_samples;
     hits = 0;
     num_tests = size(ytest)(1);
     for k=1:num_tests;
-        if predictor(xtest(i,:), betaRV, 0) == ytest(i);
+        if predictor(xtest(k,:), betaRV, 0) == ytest(k);
             hits = hits+1;
         end
     end
