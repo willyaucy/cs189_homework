@@ -19,9 +19,6 @@ changeRho = false; %default not changing the rho in each iteration
 realNumIter = numIter;
 if useSDescent
     realNumIter = numIter * size(Xtrain,1);
-    if rho == -1
-        changeRho = true;
-    end
 end
 
 if changeRho == true || rho ~= -1
@@ -38,6 +35,9 @@ if changeRho == true || rho ~= -1
             end
         else
             for j=1:size(Xtrain, 1)
+                if rho == -1
+                    changeRho = true;
+                end
                 for k=1:size(Xtrain, 1)
                     mu(k, 1) = getMu( betaRV, Xtrain(k,:) );
                 end
