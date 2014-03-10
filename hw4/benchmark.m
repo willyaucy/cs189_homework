@@ -1,7 +1,7 @@
 function accuracy = benchmark()
 close all;
 load('spam.mat'); %loads Xtrain, ytrain into the workspace
-num_samples = size(ytrain)(1);
+num_samples = length(ytrain);
 perm = randperm(num_samples);
 Xtrain = Xtrain(perm,:);
 ytrain = ytrain(perm);
@@ -17,7 +17,7 @@ for i=1:fold_size:num_samples;
     betaRV = train(xtrain_fold, ytrain_fold);
 
     hits = 0;
-    num_tests = size(ytest)(1);
+    num_tests = length(ytest);
     for k=1:num_tests;
         if predictor(xtest(k,:), betaRV, 0) == ytest(k);
             hits = hits+1;
