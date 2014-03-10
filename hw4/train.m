@@ -27,7 +27,7 @@ end
 if changeRho == true || rho ~= -1
     %figure();
     title( sprintf('lambda = %f, Stochastic = %d, Rho = %f, numIter = %d, changingRHO = %d', l, useSDescent, rho, realNumIter, changeRho) );
-    fprintf('\nlambda = %f, Stochastic = %d, Rho = %f, numIter = %d, changingRHO = %d:\n', l, useSDescent, rho, realNumIter, changeRho);
+    fprintf('lambda = %f, Stochastic = %d, Rho = %f, numIter = %d, changingRHO = %d:\n', l, useSDescent, rho, realNumIter, changeRho);
     for i=1:numIter
         %fprintf('\ncalculating new mu and betas at iteration %d\n', i);
         %clear mu;
