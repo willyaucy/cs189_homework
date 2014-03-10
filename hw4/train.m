@@ -1,58 +1,77 @@
-function betaRV=train(Xtrain, ytrain)
+function betaRV=train(Xtrain, ytrain, method, l, useSDescent, rho, numIter)
 betaRV = ones(1,size(Xtrain,2))*0.1;
 ytrain = double(ytrain);
 mu = zeros();
 
+%{
 %parameters that you can change
-l = 0.01; %lagrange multiplier
+l = 0.7; %lagrange multiplier
 method = 2; %preprocessing methods
-useSDescent = false; %set false if use batch gradient descent, true if stochastic gd
+useSDescent = true; %set false if use batch gradient descent, true if stochastic gd
 if useSDescent %if using stochastic gradient descent
-    rho = 0.001;
+    rho = 0.0001;
     numIter = 2; %Actual number of iterations = numIter * number of training samples 
 else
     rho = 0.01;
     numIter = 1000; %Exact number of iterations
 end
-
-%figure();
-if method == 1
-    X = standardizeMatCols(Xtrain);
-elseif method == 2
-    X = transformMat(Xtrain);
-else
-    X = binarizeMat(Xtrain);
+%}
+changeRho = false; %default not changing the rho in each iteration
+realNumIter = numIter;
+if useSDescent
+    realNumIter = numIter * size(Xtrain,1);
+    if rho == -1
+        changeRho = true;
+    end
 end
-for i=1:numIter
-    %fprintf('\ncalculating new mu and betas at iteration %d\n', i);
-    %clear mu;
-    %mu = []; %reinitialize mu
-    if useSDescent == false
-        for k=1:size(X, 1)
-                mu(k, 1) = getMu( betaRV, X(k,:) );
-        end
+
+if changeRho == true || rho ~= -1
+    figure();
+    title( sprintf('Method %d, lambda = %d, Stochastic = %d, Rho = %d, numIter = %d, changingRHO = %d', method, l, useSDescent, rho, realNumIter, changeRho) );
+    fprintf('\nMethod %d, lambda = %d, Stochastic = %d, Rho = %d, numIter = %d, changingRHO = %d:\n', method, l, useSDescent, rho, realNumIter, changeRho);
+    if method == 1
+        X = standardizeMatCols(Xtrain);
+        disp('Preprocessing by standardizing matrix...\n');
+    elseif method == 2
+        X = transformMat(Xtrain);
+        disp('Preprocessing by transforming matrix...\n');
     else
-        for j=1:size(X, 1)
+        X = binarizeMat(Xtrain);
+        disp('Preprocessing by binarizing matrix...\n');
+    end
+    for i=1:numIter
+        %fprintf('\ncalculating new mu and betas at iteration %d\n', i);
+        %clear mu;
+        %mu = []; %reinitialize mu
+        if useSDescent == false
             for k=1:size(X, 1)
-                mu(k, 1) = getMu( betaRV, X(k,:) );
+                    mu(k, 1) = getMu( betaRV, X(k,:) );
             end
-            betaRV = sDescent(betaRV, ytrain(j), mu(j), X(j,:), rho);
+        else
+            for j=1:size(X, 1)
+                for k=1:size(X, 1)
+                    mu(k, 1) = getMu( betaRV, X(k,:) );
+                end
+                betaRV = sDescent(betaRV, ytrain(j), mu(j), X(j,:), rho);
+                yaxis = getNll(betaRV, l, ytrain, mu);
+                hold on
+                plot((i-1)*size(X, 1)+j,yaxis,'.');
+                hold off
+            end
+        end
+        %disp(sparse(mu));
+        if useSDescent == false
+            gradient = getGradient(betaRV, l, X, ytrain, mu);
+            betaRV = bDescent(betaRV, gradient, rho);
             yaxis = getNll(betaRV, l, ytrain, mu);
             hold on
-            plot((i-1)*size(X, 1)+j,yaxis,'.');
+            plot(i, yaxis, '.');
             hold off
+            %display(betaRV);
         end
     end
-    %disp(sparse(mu));
-    if useSDescent == false
-        gradient = getGradient(betaRV, l, X, ytrain, mu);
-        betaRV = bDescent(betaRV, gradient, rho);
-        yaxis = getNll(betaRV, l, ytrain, mu);
-        hold on
-        %plot(i, yaxis, '.');
-        hold off
-        %display(betaRV);
-    end
+else
+    betaRV = [];
 end
 
 function stdMatrix=standardizeMatCols(X)
