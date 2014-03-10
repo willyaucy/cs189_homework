@@ -5,8 +5,8 @@ mu = zeros();
 
 %parameters that you can change
 l = 0.01; %lagrange multiplier
+method = 2; %preprocessing methods
 useSDescent = false; %set false if use batch gradient descent, true if stochastic gd
-
 if useSDescent %if using stochastic gradient descent
     rho = 0.001;
     numIter = 2; %Actual number of iterations = numIter * number of training samples 
@@ -15,45 +15,43 @@ else
     numIter = 1000; %Exact number of iterations
 end
 
-for method=2:2
-    %figure();
-    if method == 1
-        X = standardizeMatCols(Xtrain);
-    elseif method == 2
-        X = transformMat(Xtrain);
-    else
-        X = binarizeMat(Xtrain);
-    end
-    for i=1:numIter
-        %fprintf('\ncalculating new mu and betas at iteration %d\n', i);
-        %clear mu;
-        %mu = []; %reinitialize mu
-        if useSDescent == false
-            for k=1:size(X, 1)
-                    mu(k, 1) = getMu( betaRV, X(k,:) );
-            end
-        else
-            for j=1:size(X, 1)
-                for k=1:size(X, 1)
-                    mu(k, 1) = getMu( betaRV, X(k,:) );
-                end
-                betaRV = sDescent(betaRV, ytrain(j), mu(j), X(j,:), rho);
-                yaxis = getNll(betaRV, l, ytrain, mu);
-                hold on
-                plot((i-1)*size(X, 1)+j,yaxis,'.');
-                hold off
-            end
+%figure();
+if method == 1
+    X = standardizeMatCols(Xtrain);
+elseif method == 2
+    X = transformMat(Xtrain);
+else
+    X = binarizeMat(Xtrain);
+end
+for i=1:numIter
+    %fprintf('\ncalculating new mu and betas at iteration %d\n', i);
+    %clear mu;
+    %mu = []; %reinitialize mu
+    if useSDescent == false
+        for k=1:size(X, 1)
+                mu(k, 1) = getMu( betaRV, X(k,:) );
         end
-        %disp(sparse(mu));
-        if useSDescent == false
-            gradient = getGradient(betaRV, l, X, ytrain, mu);
-            betaRV = bDescent(betaRV, gradient, rho);
+    else
+        for j=1:size(X, 1)
+            for k=1:size(X, 1)
+                mu(k, 1) = getMu( betaRV, X(k,:) );
+            end
+            betaRV = sDescent(betaRV, ytrain(j), mu(j), X(j,:), rho);
             yaxis = getNll(betaRV, l, ytrain, mu);
             hold on
-            %plot(i, yaxis, '.');
+            plot((i-1)*size(X, 1)+j,yaxis,'.');
             hold off
-            %display(betaRV);
         end
+    end
+    %disp(sparse(mu));
+    if useSDescent == false
+        gradient = getGradient(betaRV, l, X, ytrain, mu);
+        betaRV = bDescent(betaRV, gradient, rho);
+        yaxis = getNll(betaRV, l, ytrain, mu);
+        hold on
+        %plot(i, yaxis, '.');
+        hold off
+        %display(betaRV);
     end
 end
 
