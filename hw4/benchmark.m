@@ -11,7 +11,7 @@ accuracy = zeros(num_folds,1);
 lambdas = [0.1,0.01,0.5,0.05,2,0.1,0.1,0.1,0.01,0.01,0.01,0.01,0.5,0.5,0.05,0.05,0.05,2,0.01,0.01,0.5,0.5,0.5,0.5,0.05,0.05,0.05,2,2,0.01];
 rhos = [0.00001,0.00001,0.00001,0.00001,0.00001,0.0001,0.0002,0.00001,0.002,0.0001,0.0002,0.00001,0.0001,0.00001,0.002,0.0001,0.0002,0.00001,0.002,0.005,0.01,0.001,0.002,0.005,0.01,0.002,0.005,0.002,0.005,0.0002];
 methodz = [2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2];
-useSDescents = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1];
+useSDescents = [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,true,true,true,true,true,true,true,true,true,true,true,true];
 
 standardizedX = standardizeMatCols(Xtrain);
 transformedX = transformMat(Xtrain);
@@ -27,6 +27,7 @@ for i=1:size(lambdas,2);
     elseif method == 3
         Xtrain = binarizedX;
     end
+
     if useSDescent %if using stochastic gradient descent
         numIter = 3; %Actual number of iterations = numIter * number of training samples 
     else
@@ -34,9 +35,9 @@ for i=1:size(lambdas,2);
     end
     accuracy = zeros(num_folds,1);
     f = fopen('output.txt', 'w');
-    fprintf(f, 'method=%d, lambda = %f, Stochastic = %d, Rho = %f, numIter = %d\r\n', method, lambdas(1,i), useSDescent, rhos(1,i), numIter);
+    fprintf(f, 'method = %d, lambda = %f, Stochastic = %d, Rho = %f, numIter = %d\r\n', method, lambdas(1,i), useSDescent, rhos(1,i), numIter);
     fclose(f);
-    fprintf('method=%d, lambda = %f, Stochastic = %d, Rho = %f, numIter = %d\n', method, lambdas(1,i), useSDescent, rhos(1,i), numIter);
+    fprintf('method = %d, lambda = %f, Stochastic = %d, Rho = %f, numIter = %d\n', method, lambdas(1,i), useSDescent, rhos(1,i), numIter);
     for f=1:fold_size:num_samples;
         test_upperbound = min(f+fold_size-1, num_samples);
         xtest = Xtrain(f:test_upperbound,:);
