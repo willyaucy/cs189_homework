@@ -9,7 +9,7 @@ num_folds = 10;
 fold_size = floor(num_samples / 10);
 accuracy = zeros(num_folds,1);
 lambdas = [0.05];
-rhos = [0.001];
+rhos = [0.0002];
 useSDescent = true;
 
 standardizedX = standardizeMatCols(Xtrain);
@@ -21,13 +21,22 @@ for t=3:3;
     for method=3:3;
         if method == 1
             Xtrain = standardizedX;
-            disp('Preprocessing by standardizing matrix...\n');
+            f = fopen('output.txt', 'w');
+            fprintf(f, 'Preprocessing by standardizing matrix...\n');
+            fclose(f);
+            fprintf('Preprocessing by standardizing matrix...\n');
         elseif method == 2
             Xtrain = transformedX;
-            disp('Preprocessing by transforming matrix...\n');
+            f = fopen('output.txt', 'w');
+            fprintf(f, 'Preprocessing by transforming matrix...\n');
+            fclose(f);
+            fprintf('Preprocessing by transforming matrix...\n');
         elseif method == 3
             Xtrain = binarizedX;
-            disp('Preprocessing by binarizing matrix...\n');
+            f = fopen('output.txt', 'w');
+            fprintf(f, 'Preprocessing by transforming matrix...\n');
+            fclose(f);
+            fprintf('Preprocessing by binarizing matrix...\n');
         end
         for i=1:size(lambdas,2);
             if useSDescent %if using stochastic gradient descent
