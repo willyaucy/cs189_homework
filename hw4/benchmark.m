@@ -34,7 +34,7 @@ for i=1:size(lambdas,2);
         numIter = 5000; %Exact number of iterations
     end
     accuracy = zeros(num_folds,1);
-    f = fopen('output.txt', 'w');
+    f = fopen('output.txt', 'a');
     fprintf(f, 'method = %d, lambda = %f, Stochastic = %d, Rho = %f, numIter = %d\r\n', method, lambdas(1,i), useSDescent, rhos(1,i), numIter);
     fclose(f);
     fprintf('method = %d, lambda = %f, Stochastic = %d, Rho = %f, numIter = %d\n', method, lambdas(1,i), useSDescent, rhos(1,i), numIter);
@@ -58,7 +58,7 @@ for i=1:size(lambdas,2);
         end
         %break; %comment this out to get the result for all 10 folds.
     end
-    f = fopen('output.txt', 'w');
+    f = fopen('output.txt', 'a');
     fprintf(f, 'Cross-validation accuracy: %f\r\n', mean(accuracy));
     fclose(f);
     fprintf('Cross-validation accuracy: %f\n', mean(accuracy));
