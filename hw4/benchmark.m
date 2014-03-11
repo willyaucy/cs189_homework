@@ -1,4 +1,4 @@
-function nothing = benchmark()
+function results = benchmark()
 close all;
 load('spam.mat'); %loads Xtrain, ytrain into the workspace
 num_samples = length(ytrain);
@@ -36,6 +36,9 @@ for t=3:3;
                 numIter = 5000; %Exact number of iterations
             end
             accuracy = zeros(num_folds,1);
+            f = fopen('output.txt', 'w');
+            fprintf(f, 'lambda = %f, Stochastic = %d, Rho = %f, numIter = %d\r\n', lambdas(1,i), useSDescent, rhos(1,i), numIter);
+            fclose(f);
             fprintf('lambda = %f, Stochastic = %d, Rho = %f, numIter = %d\n', lambdas(1,i), useSDescent, rhos(1,i), numIter);
             for f=1:fold_size:num_samples;
                 test_upperbound = min(f+fold_size-1, num_samples);
@@ -57,6 +60,9 @@ for t=3:3;
                 end
                 %break; %comment this out to get the result for all 10 folds.
             end
+            f = fopen('output.txt', 'w');
+            fprintf(f, 'Cross-validation accuracy: %f\r\n', mean(accuracy));
+            fclose(f);
             fprintf('Cross-validation accuracy: %f\n', mean(accuracy));
         end
     end
