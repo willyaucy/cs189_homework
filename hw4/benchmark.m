@@ -1,4 +1,4 @@
-function accuracy = benchmark()
+function nothing = benchmark()
 close all;
 load('spam.mat'); %loads Xtrain, ytrain into the workspace
 num_samples = length(ytrain);
@@ -8,7 +8,7 @@ ytrain = ytrain(perm);
 num_folds = 10;
 fold_size = floor(num_samples / 10);
 accuracy = zeros(num_folds,1);
-lambdas = [0.1];
+lambdas = [0.01];
 rhos = [0.001];
 useSDescent = true;
 
@@ -34,7 +34,7 @@ for t=3:3;
                 if useSDescent %if using stochastic gradient descent
                     numIter = 3; %Actual number of iterations = numIter * number of training samples 
                 else
-                    numIter = 1000; %Exact number of iterations
+                    numIter = 5000; %Exact number of iterations
                 end
                 accuracy = zeros(num_folds,1);
                 fprintf('lambda = %f, Stochastic = %d, Rho = %f, numIter = %d\n', lambdas(1,i), useSDescent, rhos(1,j), numIter);
@@ -53,7 +53,7 @@ for t=3:3;
                                 hits = hits+1;
                             end
                         end
-                        %fprintf(' --- Accuracy at fold %d: %f\n', floor(f/fold_size)+1, hits / num_tests);
+                        fprintf(' --- Accuracy at fold %d: %f\n', floor(f/fold_size)+1, hits / num_tests);
                         accuracy(floor(f/fold_size)+1) = hits / num_tests;
                     end
                     %break; %comment this out to get the result for all 10 folds.

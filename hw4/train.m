@@ -42,20 +42,20 @@ if changeRho == true || rho ~= -1
                     mu(k, 1) = getMu( betaRV, Xtrain(k,:) );
                 end
                 betaRV = sDescent(betaRV, ytrain(j), mu(j), Xtrain(j,:), rho);
-                yaxis = getNll(betaRV, l, ytrain, mu);
-                hold on
-                plot((i-1)*size(Xtrain, 1)+j,yaxis,'.');
-                hold off
+                %yaxis = getNll(betaRV, l, ytrain, mu);
+                %hold on
+                %plot((i-1)*size(Xtrain, 1)+j,yaxis,'.');
+                %hold off
             end
         end
         %disp(sparse(mu));
         if useSDescent == false
             gradient = getGradient(betaRV, l, Xtrain, ytrain, mu);
             betaRV = bDescent(betaRV, gradient, rho);
-            yaxis = getNll(betaRV, l, ytrain, mu);
-            hold on
-            plot(i, yaxis, '.');
-            hold off
+            %yaxis = getNll(betaRV, l, ytrain, mu);
+            %hold on
+            %plot(i, yaxis, '.');
+            %hold off
             %display(betaRV);
         end
     end
