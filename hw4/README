@@ -1,0 +1,7 @@
+My name: Chun Yin Yau (cs189-em)
+My partner's name: Wai Meng Lei (cs189-dy)
+
+hw4q1.m contains the code to get the answer for 1.4 and 1.5
+benchmark.m contains the cross validation code to train beta in problem 2.
+train.m contains the implementation of batch and stochastic gradient descent to train beta.
+hw4q2.m contains the code to plot the graphs for 2.2.
