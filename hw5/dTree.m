@@ -1,12 +1,10 @@
-function root=dTree()
-    load('spam.mat'); % loads Xtrain, ytrain, Xtest into the workspace
-    Xtrain = double(Xtrain); % converts to doubles
-    Xtrain = horzcat(Xtrain,ytrain); % combine the labels with the samples, with labels at last column
-    root = growTree(Xtrain);
+function root=dTree(XtrainWithLabels, maxDepth)
+    XtrainWithLabels = double(XtrainWithLabels); % converts to doubles
+    root = growTree(XtrainWithLabels, 0, maxDepth);
     
-function node=growTree(root)
+function node=growTree(root, depth, maxDepth)
     previousEntropy = calculateEntropy(root); % initial entropy
-    if previousEntropy == 0
+    if previousEntropy == 0 || depth >= maxDepth
         node.attr = 0;
         node.label = getMajority(root);
         return;
@@ -49,8 +47,8 @@ function node=growTree(root)
         node.attr = 0;
         node.label = getMajority(root);
     else
-        node.left = growTree(bestLeftSubtree);
-        node.right = growTree(bestRightSubtree);
+        node.left = growTree(bestLeftSubtree, depth+1, maxDepth);
+        node.right = growTree(bestRightSubtree, depth+1, maxDepth);
         node.attr = bestAttr;
         node.splitpoint = attrMeans(bestAttr);
     end
@@ -83,3 +81,4 @@ function label=getMajority(tree)
     else
         label = 0;
     end
+    
