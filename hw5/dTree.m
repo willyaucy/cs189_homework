@@ -1,17 +1,14 @@
-function root=dtree()
+function root=dTree()
     load('spam.mat'); % loads Xtrain, ytrain, Xtest into the workspace
     Xtrain = double(Xtrain); % converts to doubles
     Xtrain = horzcat(Xtrain,ytrain); % combine the labels with the samples, with labels at last column
-    root = growTree(Xtrain, 0);
+    root = growTree(Xtrain);
     
-function node=growTree(root, depth)
+function node=growTree(root)
     previousEntropy = calculateEntropy(root); % initial entropy
     if previousEntropy == 0
-        node.left = 0;
-        node.right = 0;
         node.attr = 0;
-        node.splitpoint = 0;
-        node.depth = 0;
+        node.label = getMajority(root);
         return;
     end
     numFeatures = size(root, 2)-1;
@@ -49,17 +46,13 @@ function node=growTree(root, depth)
         end
     end
     if maxInfoGain == 0
-        node.left = 0;
-        node.right = 0;
         node.attr = 0;
-        node.splitpoint = 0;
-        node.depth = 0;
+        node.label = getMajority(root);
     else
-        node.left = growTree(bestLeftSubtree, depth+1);
-        node.right = growTree(bestRightSubtree, depth+1);
+        node.left = growTree(bestLeftSubtree);
+        node.right = growTree(bestRightSubtree);
         node.attr = bestAttr;
         node.splitpoint = attrMeans(bestAttr);
-        node.depth = max([depth node.left.depth node.right.depth]);
     end
     
 function entropy=calculateEntropy(tree)
@@ -69,12 +62,24 @@ function entropy=calculateEntropy(tree)
     numNonSpams = size(nonSpams, 1);
     numSpams = size(spams, 1);
     totalSize = numNonSpams + numSpams;
-    if totalSize==0
-        entropy = 0;
-    elseif numSpams/totalSize == 0
+    %if totalSize==0
+    %    entropy = 0;
+    if numSpams/totalSize == 0
         entropy = - numNonSpams/totalSize * log2(numNonSpams/totalSize);
     elseif numNonSpams/totalSize == 0
         entropy = - numSpams/totalSize * log2(numSpams/totalSize);
     else
         entropy = - numSpams/totalSize * log2(numSpams/totalSize) - numNonSpams/totalSize * log2(numNonSpams/totalSize);
+    end
+    
+function label=getMajority(tree)
+    numFeatures = size(tree, 2)-1;
+    nonSpams = tree( tree(:,numFeatures+1)==0, : ); % matrix of non spams
+    spams = tree( tree(:,numFeatures+1)==1, : ); % matrix of spams
+    numNonSpams = size(nonSpams, 1);
+    numSpams = size(spams, 1);
+    if numSpams >= numNonSpams
+        label = 1;
+    else
+        label = 0;
     end
