@@ -1,4 +1,4 @@
-function result=forestBenchmark()
+function result=adaBenchmark()
     load('spam.mat'); % loads Xtrain, ytrain, Xtest into the workspace
     num_samples = length(ytrain);
     ytrain = double(ytrain);
@@ -8,12 +8,12 @@ function result=forestBenchmark()
     accuracies = zeros(num_folds,1);
     perm = randperm(num_samples);
     XtrainWithLabels = XtrainWithLabels(perm,:);
-    for depth=10:40
+    for depth=1:40
         for f=1:fold_size:num_samples
             test_upperbound = min(f+fold_size-1, num_samples);
             xtest = XtrainWithLabels(f:test_upperbound,:);
             xtrain_fold = [XtrainWithLabels(1:f-1,:); XtrainWithLabels(test_upperbound+1:num_samples,:)];
-            dtrees = randomForest(xtrain_fold, depth);
+            dtrees = adaboost(xtrain_fold, depth);
             accuracy = predictor(xtest, dtrees);
             accuracies(floor(f/fold_size)+1) = accuracy;
             %break; %comment this out to get the result for all 10 folds.
@@ -27,7 +27,7 @@ function accuracy=predictor(XtestWithLabels, dtree)
     numFeatures = size(XtestWithLabels,2)-1;
     numError = 0;
     for i=1:numSamples
-       ourLabel = forestPredictor(XtestWithLabels(i,:), dtree);
+       ourLabel = adaPredictor(XtestWithLabels(i,:), dtree);
        actualLabel = XtestWithLabels(i,numFeatures+1);
        if ourLabel ~= actualLabel
             numError = numError + 1;
