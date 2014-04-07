@@ -1,6 +1,7 @@
 function result=dTreeBenchmark()
     load('spam.mat'); % loads Xtrain, ytrain, Xtest into the workspace
     num_samples = length(ytrain);
+    ytrain = double(ytrain);
     XtrainWithLabels = horzcat(Xtrain,ytrain); % combine the labels with the samples, with labels at last column
     num_folds = 10;
     fold_size = floor(num_samples / num_folds);
