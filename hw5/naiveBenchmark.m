@@ -3,7 +3,7 @@ function result=naiveBenchmark()
     num_samples = length(ytrain);
     ytrain = double(ytrain);
     XtrainWithLabels = horzcat(Xtrain,ytrain); % combine the labels with the samples, with labels at last column
-    dtree = dTree(XtrainWithLabels, 50);
+    dtree = dTree(XtrainWithLabels, 50, false);
     load('spam.mat'); % loads Xtrain, ytrain, Xtest into the workspace
     numSamples = size(Xtrain,1);
     numError = 0;

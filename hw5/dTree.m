@@ -25,8 +25,7 @@ function node=growTree(root, depth, maxDepth, randomFeatures)
         perm = perm( 1: ceil( sqrt( size(numFeatures,1) ) ) );
         numFeatures = perm;
     end
-    for i=1:size(numFeatures,1)
-        %disp(['feature ' num2str(i)]);
+    for i=1:size(numFeatures,2)
         leftSubtree = root( root(:,numFeatures(i))<attrMeans(numFeatures(i)), : ); % data that belongs to left subtree
         rightSubtree = root( root(:,numFeatures(i))>=attrMeans(numFeatures(i)), : ); % data that belongs to right subtree
         sizeLeft = size(leftSubtree, 1);
