@@ -5,11 +5,9 @@ function result=dtree()
     root = growTree(Xtrain);
     
 function node=growTree(root)
-    numFeatures = size(root, 2);
+    numFeatures = size(root, 2)-1;
     nonSpams = root( root(:,numFeatures+1)==0, : ); % matrix of non spams
     spams = root( root(:,numFeatures+1)==1, : ); % matrix of spams
-    numNonSpams = size(nonSpams, 1);
-    numSpams = size(spams, 1);
     attrMeansNonSpams = mean(nonSpams, 1); % means of the attributes of the non spams, expected size 1*57
     attrMeansSpams = mean(spams, 1);
     attrMeans = mean([attrMeansNonSpams;attrMeansSpams], 1); % mean of the means
