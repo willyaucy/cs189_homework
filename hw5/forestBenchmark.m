@@ -1,6 +1,7 @@
-function result=dTreeBenchmark()
+function result=forestBenchmark()
     load('spam.mat'); % loads Xtrain, ytrain, Xtest into the workspace
     num_samples = length(ytrain);
+    ytrain = double(ytrain);
     XtrainWithLabels = horzcat(Xtrain,ytrain); % combine the labels with the samples, with labels at last column
     num_folds = 10;
     fold_size = floor(num_samples / num_folds);
@@ -12,8 +13,8 @@ function result=dTreeBenchmark()
             test_upperbound = min(f+fold_size-1, num_samples);
             xtest = XtrainWithLabels(f:test_upperbound,:);
             xtrain_fold = [XtrainWithLabels(1:f-1,:); XtrainWithLabels(test_upperbound+1:num_samples,:)];
-            dtree = dTree(xtrain_fold, depth);
-            accuracy = predictor(xtest, dtree);
+            dtrees = randomForest(xtrain_fold, depth);
+            accuracy = predictor(xtest, dtrees);
             accuracies(floor(f/fold_size)+1) = accuracy;
             %break; %comment this out to get the result for all 10 folds.
         end
@@ -26,11 +27,10 @@ function accuracy=predictor(XtestWithLabels, dtree)
     numFeatures = size(XtestWithLabels,2)-1;
     numError = 0;
     for i=1:numSamples
-       ourLabel = spamOrHam(XtestWithLabels(i,:), dtree);
+       ourLabel = forestPredictor(XtestWithLabels(i,:), dtree);
        actualLabel = XtestWithLabels(i,numFeatures+1);
        if ourLabel ~= actualLabel
             numError = numError + 1;
        end
     end
     accuracy = (numSamples-numError)/numSamples;
-    

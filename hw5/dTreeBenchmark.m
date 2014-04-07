@@ -12,7 +12,7 @@ function result=dTreeBenchmark()
             test_upperbound = min(f+fold_size-1, num_samples);
             xtest = XtrainWithLabels(f:test_upperbound,:);
             xtrain_fold = [XtrainWithLabels(1:f-1,:); XtrainWithLabels(test_upperbound+1:num_samples,:)];
-            dtree = dTree(xtrain_fold, depth);
+            dtree = dTree(xtrain_fold, depth, false);
             accuracy = predictor(xtest, dtree);
             accuracies(floor(f/fold_size)+1) = accuracy;
             %break; %comment this out to get the result for all 10 folds.

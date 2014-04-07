@@ -1,8 +1,8 @@
-function root=dTree(XtrainWithLabels, maxDepth)
+function root=dTree(XtrainWithLabels, maxDepth, randomFeatures)
     XtrainWithLabels = double(XtrainWithLabels); % converts to doubles
-    root = growTree(XtrainWithLabels, 0, maxDepth);
+    root = growTree(XtrainWithLabels, 0, maxDepth, randomFeatures);
     
-function node=growTree(root, depth, maxDepth)
+function node=growTree(root, depth, maxDepth, randomFeatures)
     previousEntropy = calculateEntropy(root); % initial entropy
     if previousEntropy == 0 || depth >= maxDepth
         node.attr = 0;
@@ -19,10 +19,16 @@ function node=growTree(root, depth, maxDepth)
     bestAttr = 0;
     bestLeftSubtree = [];
     bestRightSubtree = [];
-    for i=1:numFeatures
+    numFeatures = 1:numFeatures;
+    if randomFeatures
+        perm = randperm( size(numFeatures,1) );
+        perm = perm( 1: ceil( sqrt( size(numFeatures,1) ) ) );
+        numFeatures = perm;
+    end
+    for i=1:size(numFeatures,1)
         %disp(['feature ' num2str(i)]);
-        leftSubtree = root( root(:,i)<attrMeans(i), : ); % data that belongs to left subtree
-        rightSubtree = root( root(:,i)>=attrMeans(i), : ); % data that belongs to right subtree
+        leftSubtree = root( root(:,numFeatures(i))<attrMeans(numFeatures(i)), : ); % data that belongs to left subtree
+        rightSubtree = root( root(:,numFeatures(i))>=attrMeans(numFeatures(i)), : ); % data that belongs to right subtree
         sizeLeft = size(leftSubtree, 1);
         sizeRight = size(rightSubtree, 1);
         totalSize = sizeLeft+sizeRight;
@@ -37,7 +43,7 @@ function node=growTree(root, depth, maxDepth)
         %disp(['inside loop initial entropy: ' num2str(previousEntropy) ' infoGain: ' num2str(infoGain)]);
         if infoGain > maxInfoGain
            %disp(' found max ');
-           bestAttr = i;
+           bestAttr = numFeatures(i);
            maxInfoGain = infoGain;
            bestLeftSubtree = leftSubtree;
            bestRightSubtree = rightSubtree;
@@ -47,8 +53,8 @@ function node=growTree(root, depth, maxDepth)
         node.attr = 0;
         node.label = getMajority(root);
     else
-        node.left = growTree(bestLeftSubtree, depth+1, maxDepth);
-        node.right = growTree(bestRightSubtree, depth+1, maxDepth);
+        node.left = growTree(bestLeftSubtree, depth+1, maxDepth, randomFeatures);
+        node.right = growTree(bestRightSubtree, depth+1, maxDepth, randomFeatures);
         node.attr = bestAttr;
         node.splitpoint = attrMeans(bestAttr);
     end
