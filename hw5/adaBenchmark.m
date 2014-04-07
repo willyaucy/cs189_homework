@@ -13,8 +13,8 @@ function result=adaBenchmark()
             test_upperbound = min(f+fold_size-1, num_samples);
             xtest = XtrainWithLabels(f:test_upperbound,:);
             xtrain_fold = [XtrainWithLabels(1:f-1,:); XtrainWithLabels(test_upperbound+1:num_samples,:)];
-            dtrees = adaboost(xtrain_fold, depth);
-            accuracy = predictor(xtest, dtrees);
+            [dtrees,alphas] = adaboost(xtrain_fold, depth);
+            accuracy = predictor(xtest, dtrees, alphas);
             accuracies(floor(f/fold_size)+1) = accuracy;
             %break; %comment this out to get the result for all 10 folds.
         end
@@ -22,12 +22,12 @@ function result=adaBenchmark()
         fprintf(' --- Accuracy with depth %d: %f\n', depth, performance);
     end
     
-function accuracy=predictor(XtestWithLabels, dtree)
+function accuracy=predictor(XtestWithLabels, dtrees, alphas)
     numSamples = size(XtestWithLabels,1);
     numFeatures = size(XtestWithLabels,2)-1;
     numError = 0;
     for i=1:numSamples
-       ourLabel = adaPredictor(XtestWithLabels(i,:), dtree);
+       ourLabel = adaPredictor(XtestWithLabels(i,:), dtrees, alphas);
        actualLabel = XtestWithLabels(i,numFeatures+1);
        if ourLabel ~= actualLabel
             numError = numError + 1;

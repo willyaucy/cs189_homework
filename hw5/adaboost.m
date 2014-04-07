@@ -1,4 +1,4 @@
-function result=adaboost(XtrainWithLabels, depth)
+function [dtrees,alphas]=adaboost(XtrainWithLabels, depth)
     numSamples = size(XtrainWithLabels, 1);
     numFeatures = size(XtrainWithLabels, 2)-1;
     samples = zeros(1,numFeatures+1);
@@ -8,14 +8,14 @@ function result=adaboost(XtrainWithLabels, depth)
     end
     for t=1:10 % number of rounds
         cumdist = cumsum(dist);
-        for i=1:(numSamples*0.67)
+        for i=1:numSamples
             ind = find(cumdist>rand(),1);
             samples(i,:) = XtrainWithLabels(ind,:);
         end
         dtrees(t).root = dTree(samples, depth, false);
         [error, correctClassifications] = getErrorAndUpdateDist(samples, dtrees(t).root, dist);
         alphas(t,1) = getAlpha(error);
-        dist = updateDist(dist, error, correctClassifications);
+        dist = updateDist(dist, alphas(t,1), correctClassifications);
     end
     
     
@@ -39,6 +39,6 @@ function alpha=getAlpha(error)
     alpha = log( (1-error)/error ) / 2;
     
 function dist=updateDist(dist, alpha, correctClassifications)
-    dist = dist*exp(-alpha*correctClassifications);
+    dist = dist.*exp(correctClassifications.*-alpha);
     dist = dist./sum(dist);
        
