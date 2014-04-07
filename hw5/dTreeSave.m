@@ -1,8 +1,8 @@
-function root=dTree(XtrainWithLabels, maxDepth, randomFeatures, chi)
+function root=dTree(XtrainWithLabels, maxDepth, randomFeatures)
     XtrainWithLabels = double(XtrainWithLabels); % converts to doubles
-    root = growTree(XtrainWithLabels, 0, maxDepth, randomFeatures, chi);
+    root = growTree(XtrainWithLabels, 0, maxDepth, randomFeatures);
     
-function node=growTree(root, depth, maxDepth, randomFeatures, chi)
+function node=growTree(root, depth, maxDepth, randomFeatures)
     previousEntropy = calculateEntropy(root); % initial entropy
     if previousEntropy == 0 || depth >= maxDepth
         node.attr = 0;
@@ -22,7 +22,7 @@ function node=growTree(root, depth, maxDepth, randomFeatures, chi)
     numFeatures = 1:numFeatures;
     if randomFeatures
         perm = randperm( size(numFeatures,2) );
-        perm = perm( 1: ceil(sqrt( size(numFeatures,2) ) ) );
+        perm = perm( 1: ceil( 1.5*sqrt( size(numFeatures,2) ) ) );
         numFeatures = perm;
     end
     for i=1:size(numFeatures,2)
@@ -52,39 +52,12 @@ function node=growTree(root, depth, maxDepth, randomFeatures, chi)
         node.attr = 0;
         node.label = getMajority(root);
     else
-        if chi
-            c = calculateChiSquareValue(root, bestLeftSubtree, bestRightSubtree);
-            if c <= 3.8415
-                node.attr = 0;
-                node.label = getMajority(root);
-                return;
-            end
-        end
-        node.left = growTree(bestLeftSubtree, depth+1, maxDepth, randomFeatures, chi);
-        node.right = growTree(bestRightSubtree, depth+1, maxDepth, randomFeatures, chi);
+        node.left = growTree(bestLeftSubtree, depth+1, maxDepth, randomFeatures);
+        node.right = growTree(bestRightSubtree, depth+1, maxDepth, randomFeatures);
         node.attr = bestAttr;
         node.splitpoint = attrMeans(bestAttr);
     end
     
-function c=calculateChiSquareValue(tree, bestLeftSubtree, bestRightSubtree)
-    numFeatures = size(tree, 2)-1;
-    p = double(size(tree, 1));
-    nonSpams = tree( tree(:,numFeatures+1)==0, : ); % matrix of non spams
-    spams = tree( tree(:,numFeatures+1)==1, : ); % matrix of spams
-    s = double(size(spams, 1));
-    h = double(size(nonSpams, 1));
-    pl = double(size(bestLeftSubtree, 1));
-    nonSpamsLeft = bestLeftSubtree( bestLeftSubtree(:,numFeatures+1)==0, : ); % matrix of non spams
-    spamsLeft = bestLeftSubtree( bestLeftSubtree(:,numFeatures+1)==1, : ); % matrix of spams
-    sl = double(size(spamsLeft, 1));
-    hl = double(size(nonSpamsLeft, 1));
-    pr = double(size(bestRightSubtree, 1));
-    nonSpamsRight = bestRightSubtree( bestRightSubtree(:,numFeatures+1)==0, : ); % matrix of non spams
-    spamsRight = bestRightSubtree( bestRightSubtree(:,numFeatures+1)==1, : ); % matrix of spams
-    sr = double(size(spamsRight, 1));
-    hr = double(size(nonSpamsRight, 1));
-    c = (sl - s/p * pl)^2 / (s/p * pl) + (hl - h/p * pl)^2 / (h/p * pl) + (sr - s/p * pr)^2 / (s/p * pr) + (hr - h/p * pr)^2 / (h/p * pr);
-
 function entropy=calculateEntropy(tree)
     numFeatures = size(tree, 2)-1;
     nonSpams = tree( tree(:,numFeatures+1)==0, : ); % matrix of non spams

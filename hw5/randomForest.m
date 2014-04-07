@@ -1,5 +1,5 @@
-function dTrees=randomForest(XtrainWithLabels, depth)
-    treeSize = 23;
+function dTrees=randomForest(XtrainWithLabels, depth, chi)
+    treeSize = 15;
     for i=1:treeSize
         dTrees(i).root = 0;
     end
@@ -8,5 +8,5 @@ function dTrees=randomForest(XtrainWithLabels, depth)
         numSamplesSubset = ceil(numSamples * 0.67);
         sampleIndices = ceil( rand(numSamplesSubset,1) .* numSamples );
         XtrainSubset = XtrainWithLabels(sampleIndices, :);
-        dTrees(i).root = dTree(XtrainSubset, depth, true);
+        dTrees(i).root = dTree(XtrainSubset, depth, true, chi);
     end
