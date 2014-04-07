@@ -21,8 +21,8 @@ function node=growTree(root, depth, maxDepth, randomFeatures)
     bestRightSubtree = [];
     numFeatures = 1:numFeatures;
     if randomFeatures
-        perm = randperm( size(numFeatures,1) );
-        perm = perm( 1: ceil( sqrt( size(numFeatures,1) ) ) );
+        perm = randperm( size(numFeatures,2) );
+        perm = perm( 1: ceil( sqrt( size(numFeatures,2) ) ) );
         numFeatures = perm;
     end
     for i=1:size(numFeatures,2)
