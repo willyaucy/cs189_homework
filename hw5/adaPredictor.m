@@ -1,6 +1,6 @@
-function label=adaPredictor(data, dTrees, alphas)
+function label=adaPredictor(data, dTrees, alphas, tfinal)
     weightedLabel = 0;
-    for i=1:size(dTrees,2)
+    for i=1:tfinal
         label=spamOrHam(data, dTrees(i).root);
         if label == 0
             label = -1;
@@ -8,4 +8,3 @@ function label=adaPredictor(data, dTrees, alphas)
         weightedLabel = weightedLabel + alphas(i) * label;
     end
     label = (sign(weightedLabel)+1)/2;
-    

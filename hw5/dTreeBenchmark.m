@@ -12,7 +12,7 @@ function [no_prune, prune]=dTreeBenchmark()
     no_prune = zeros(11, 1);
     prune = zeros(11, 1);
     fprintf(' --- Running without X-square pruning --- \n')
-    for depth=10:20
+    for depth=1:20
         for f=1:fold_size:num_samples
             test_upperbound = min(f+fold_size-1, num_samples);
             xtest = XtrainWithLabels(f:test_upperbound,:);
