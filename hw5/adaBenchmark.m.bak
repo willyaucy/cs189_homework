@@ -8,9 +8,13 @@ function result=adaBenchmark()
     accuracies = zeros(num_folds,1);
     perm = randperm(num_samples);
     XtrainWithLabels = XtrainWithLabels(perm,:);
+<<<<<<< HEAD
+    for depth=1:1
+=======
 
     result = zeros(18, 1);
     for depth=1:18
+>>>>>>> 5a89969ba7dd639bed76fdaad218a798685eeff2
         for f=1:fold_size:num_samples
             disp('start cross validation..');
             test_upperbound = min(f+fold_size-1, num_samples);
