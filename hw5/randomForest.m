@@ -1,5 +1,5 @@
 function dTrees=randomForest(XtrainWithLabels, depth, chi)
-    treeSize = 15;
+    treeSize = 101;
     for i=1:treeSize
         dTrees(i).root = 0;
     end

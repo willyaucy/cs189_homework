@@ -1,0 +1,11 @@
+Group: Wai Meng Lei (cs189-dy), Chun Yin Yau (cs189-em), Alvin Wong (cs189-cq)
+
+dTree.m contains the code to build a regular decision tree.
+
+randomForest.m contains the code to generate a random forest.
+
+adaboost.m contains the code to build t weak decision trees and classify data using these weighted trees.
+
+The *benchmark.m are used to benchmark the 3 separate classifiers using cross validation. *predictor.m are the helper files.
+
+Extra Components: Pruning enabled decision trees

@@ -4,10 +4,11 @@ function [dtrees,alphas]=adaboost(XtrainWithLabels, depth)
     samples = zeros(numSamples,numFeatures+1);
     alphas = zeros(500,1);
     dist = ones(numSamples,1)./numSamples; % initialize as uniform distribution
-    for t=1:500
+    for t=1:15
         dtrees(t).root = 0;
     end
-    for t=1:500 % number of rounds
+    for t=1:15 % number of rounds
+        disp(['iteration ' num2str(t)]);
         cumdist = cumsum(dist);
         for i=1:numSamples
             ind = ceil( rand()*numSamples );
