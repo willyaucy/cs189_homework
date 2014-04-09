@@ -8,7 +8,9 @@ function result=adaBenchmark()
     accuracies = zeros(num_folds,1);
     perm = randperm(num_samples);
     XtrainWithLabels = XtrainWithLabels(perm,:);
-    for depth=18:18
+
+    result = zeros(18, 1);
+    for depth=1:18
         for f=1:fold_size:num_samples
             test_upperbound = min(f+fold_size-1, num_samples);
             xtest = XtrainWithLabels(f:test_upperbound,:);
@@ -19,6 +21,7 @@ function result=adaBenchmark()
             %break; %comment this out to get the result for all 10 folds.
         end
         performance=mean(accuracies);
+        result(depth) = performance;
         fprintf(' --- Accuracy with depth %d: %f\n', depth, performance);
     end
     

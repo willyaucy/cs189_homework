@@ -1,4 +1,4 @@
-function result=forestBenchmark()
+function [no_prune, prune]=forestBenchmark()
     load('spam.mat'); % loads Xtrain, ytrain, Xtest into the workspace
     num_samples = length(ytrain);
     ytrain = double(ytrain);
@@ -8,6 +8,9 @@ function result=forestBenchmark()
     accuracies = zeros(num_folds,1);
     perm = randperm(num_samples);
     XtrainWithLabels = XtrainWithLabels(perm,:);
+
+    no_prune = zeros(21, 1);
+    prune = zeros(21, 1);
     fprintf(' --- Running without X-square pruning --- \n')
     for depth=10:30
         for f=1:fold_size:num_samples
@@ -20,6 +23,7 @@ function result=forestBenchmark()
             %break; %comment this out to get the result for all 10 folds.
         end
         performance=mean(accuracies);
+        no_prune(depth-9) = performance;
         fprintf(' --- Accuracy with depth %d: %f\n', depth, performance);
     end
     fprintf(' --- Running with X-square pruning --- \n')
@@ -34,6 +38,7 @@ function result=forestBenchmark()
             %break; %comment this out to get the result for all 10 folds.
         end
         performance=mean(accuracies);
+        prune(depth-9) = performance;
         fprintf(' --- Accuracy with depth %d: %f\n', depth, performance);
     end
     
