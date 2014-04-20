@@ -1,16 +1,18 @@
-function [W_list,B_list]=singleNN(dataWithLabel, crossEntropyOn)
+function [W_list,B_list, totalLossList]=singleNN(dataWithLabel, crossEntropyOn)
     MINI_BATCH_SIZE = 200;
     NUM_EPOCHS = 500;
     NUM_CLASSES = 10;
-    alpha = 0.1;
+    alpha = 0.5;
     numData = size(dataWithLabel, 1);
     numFeatures = size(dataWithLabel, 2) - 1;
     numBatches = ceil(numData/MINI_BATCH_SIZE);
     W_list = zeros(NUM_CLASSES, numFeatures, NUM_EPOCHS/10);
     B_list = zeros(NUM_CLASSES, NUM_EPOCHS/10);
-    W = rand(NUM_CLASSES, numFeatures); % NUM_CLASSES by numFeatures
-    B = rand(NUM_CLASSES, 1);
+    totalLossList = zeros(NUM_EPOCHS/10,1);
+    W = rand(NUM_CLASSES, numFeatures)-0.5; % NUM_CLASSES by numFeatures
+    B = rand(NUM_CLASSES, 1)-0.5;
     for e=1:NUM_EPOCHS
+        totalLoss = 0;
         perm = randperm( numData );
         dataWithLabel = dataWithLabel(perm, :);
         for i=0:numBatches-1
@@ -23,22 +25,31 @@ function [W_list,B_list]=singleNN(dataWithLabel, crossEntropyOn)
                 T(dataWithLabel(i*MINI_BATCH_SIZE + j, numFeatures+1)+1) = 1;
                 if crossEntropyOn
                     temp = diag(Y.*(1-Y)) * (- T./Y + (1-T)./(1-Y));
+                    totalLoss = totalLoss + getCrossEntropyLoss(Y, T);
                 else
                     temp = diag(Y.*(1-Y)) * (Y - T); % NUM_CLASSES by 1
+                    totalLoss = totalLoss + getMeanSquareLoss(Y, T);
                 end
                 W_grad = W_grad + temp * X'; % NUM_CLASSES by numFeatures
                 B_grad = B_grad + temp;
             end
-            W = W - alpha* W_grad;
-            B = B - alpha* B_grad;
+            W = W - alpha/e* W_grad;
+            B = B - alpha/e* B_grad;
         end
         if mod(e,10) == 0
             fprintf('Epoch %d\n',e);
             W_list(:,:,e/10) = W;
             B_list(:,e/10) = B;
+            totalLossList(e/10) = totalLoss;
         end
     end
     
 function result=sigmoid(X)
     result = 1./(1+exp(-1. * X));
+    
+function result=getMeanSquareLoss(Y, T)
+    result = sum((Y-T).^2)/2;
+    
+function result=getCrossEntropyLoss(Y, T)
+    result = -1*sum( (T.*log(Y)+(1-T).*log(1-Y)) );
     

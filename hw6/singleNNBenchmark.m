@@ -1,35 +1,33 @@
-function singleNNBenchmark(crossEntropyOn)
-    load('data/train_small.mat');
+function [accuracies, totalLoss] = singleNNBenchmark(crossEntropyOn)
+    load('data/train.mat');
     load('data/test.mat');
     testTrainingData = false;
     if testTrainingData
         for i=1:size(train, 2)
             fprintf('Set %d\n',i);
             dataWithLabel = preprocessMNIST(train{i});
-            [W_list,B_list]= singleNN(dataWithLabel, crossEntropyOn);
+            [W_list, B_list, totalLoss]= singleNN(dataWithLabel, crossEntropyOn);
             numPoints = size(W_list, 3);
             accuracies = size(numPoints, 1);
-            totalLoss = size(numPoints, 1);
             for j=1:numPoints
-                [accuracies(j), totalLoss(j)] = singleNNPredictor(W_list(:,:,j), B_list(:,j), dataWithLabel);
+                accuracies(j) = singleNNPredictor(W_list(:,:,j), B_list(:,j), dataWithLabel, crossEntropyOn);
             end
             scrsz = get(0,'ScreenSize');
             figure('Position',[scrsz(1) scrsz(2) scrsz(3) scrsz(4)]);
             subplot(1,2,1);
             plot(accuracies*100, '-xr');
-            title(['Classification Accuracies on Testing Set ' num2str(i)]);
+            title(['Classification Accuracies on Training Set ' num2str(i)]);
             subplot(1,2,2);
             plot(totalLoss, '-xb');
             title(['Total Training Error on Training Set ' num2str(i)]);
         end
     else
-        dataWithLabel = preprocessMNIST(train{7}); %train with set 7
-        [W_list,B_list]= singleNN(dataWithLabel, crossEntropyOn);
+        dataWithLabel = preprocessMNIST(train); %train with set 7
+        [W_list,B_list,totalLoss]= singleNN(dataWithLabel, crossEntropyOn);
         numPoints = size(W_list, 3);
         accuracies = size(numPoints, 1);
-        totalLoss = size(numPoints, 1);
         for j=1:numPoints
-            [accuracies(j), totalLoss(j)] = singleNNPredictor(W_list(:,:,j), B_list(:,j), preprocessMNIST(test));
+            accuracies(j) = singleNNPredictor(W_list(:,:,j), B_list(:,j), preprocessMNIST(test), crossEntropyOn);
         end
         scrsz = get(0,'ScreenSize');
         figure('Position',[scrsz(1) scrsz(2) scrsz(3) scrsz(4)]);
@@ -38,7 +36,7 @@ function singleNNBenchmark(crossEntropyOn)
         title('Classification Accuracies on Testing Set');
         subplot(1,2,2);
         plot(totalLoss, '-xb');
-        title('Total Training Error on Training Set');
+        title('Total Training Error on Testing Set');
     end
     
 function dataWithLabel=preprocessMNIST(dataSet)
