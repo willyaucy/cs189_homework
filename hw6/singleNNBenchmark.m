@@ -1,6 +1,7 @@
 function singleNNBenchmark()
     load('data/train_small.mat');
     load('data/test.mat');
+    data = test;
     for i=1:size(train, 2)
         fprintf('Set %d\n',i);
         dataWithLabel = preprocessMNIST(train{i});
@@ -15,7 +16,7 @@ function singleNNBenchmark()
         figure('Position',[scrsz(1) scrsz(2) scrsz(3) scrsz(4)]);
         subplot(1,2,1);
         plot(accuracies*100, '-xr');
-        title(['Classification Accuracies on Training Set ' num2str(i)]);
+        title(['Classification Accuracies on Testing Set ' num2str(i)]);
         subplot(1,2,2);
         plot(totalLoss, '-xb');
         title(['Total Training Error on Training Set ' num2str(i)]);

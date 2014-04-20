@@ -25,4 +25,4 @@ function result=getMeanSquareLoss(Y, T)
     result = sum((Y-T).^2)/2;
     
 function result=getCrossEntropyLoss(Y, T)
-    result = 0; %TODO: implement this
+    result = -1*(T.*log(Y)+(1-T).*log(1-Y));
