@@ -24,7 +24,7 @@ function singleNNBenchmark(crossEntropyOn)
         end
     else
         dataWithLabel = preprocessMNIST(test);
-        [W_list,B_list]= singleNN(dataWithLabel);
+        [W_list,B_list]= singleNN(dataWithLabel, crossEntropyOn);
         numPoints = size(W_list, 3);
         accuracies = size(numPoints, 1);
         totalLoss = size(numPoints, 1);
