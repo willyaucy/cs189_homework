@@ -1,4 +1,4 @@
-function [W_list,B_list]=singleNN(dataWithLabel)
+function [W_list,B_list]=singleNN(dataWithLabel, crossEntropyOn)
     MINI_BATCH_SIZE = 200;
     NUM_EPOCHS = 500;
     NUM_CLASSES = 10;
@@ -21,7 +21,11 @@ function [W_list,B_list]=singleNN(dataWithLabel)
                 Y = sigmoid(W*X + B); % NUM_CLASSES by 1
                 T = zeros(NUM_CLASSES, 1);
                 T(dataWithLabel(i*MINI_BATCH_SIZE + j, numFeatures+1)+1) = 1;
-                temp = diag(Y.*(1-Y)) * (Y - T); % NUM_CLASSES by 1
+                if crossEntropyOn
+                    temp = diag(Y.*(1-Y)) * (- T./Y + (1-T)./(1-Y));
+                else
+                    temp = diag(Y.*(1-Y)) * (Y - T); % NUM_CLASSES by 1
+                end
                 W_grad = W_grad + temp * X'; % NUM_CLASSES by numFeatures
                 B_grad = B_grad + temp;
             end
