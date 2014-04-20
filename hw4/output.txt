@@ -1,0 +1,52 @@
+method = 1, lambda = 0.500000, Stochastic = 1, Rho = 0.002000, numIter = 3
+Cross-validation accuracy: 0.909275
+method = 1, lambda = 0.500000, Stochastic = 1, Rho = 0.005000, numIter = 3
+Cross-validation accuracy: 0.914203
+method = 1, lambda = 0.050000, Stochastic = 1, Rho = 0.010000, numIter = 3
+Cross-validation accuracy: 0.915072
+method = 1, lambda = 0.050000, Stochastic = 1, Rho = 0.002000, numIter = 3
+Cross-validation accuracy: 0.909275
+method = 1, lambda = 0.050000, Stochastic = 1, Rho = 0.005000, numIter = 3
+Cross-validation accuracy: 0.914203
+method = 1, lambda = 2.000000, Stochastic = 1, Rho = 0.002000, numIter = 3
+Cross-validation accuracy: 0.909275
+method = 1, lambda = 2.000000, Stochastic = 1, Rho = 0.005000, numIter = 3
+Cross-validation accuracy: 0.914203
+method = 2, lambda = 0.010000, Stochastic = 1, Rho = 0.000200, numIter = 3
+Cross-validation accuracy: 0.884058
+method = 2, lambda = 2.000000, Stochastic = 0, Rho = 0.000010, numIter = 5000
+Cross-validation accuracy: 0.094203
+method = 2, lambda = 2.000000, Stochastic = 0, Rho = 0.000010, numIter = 1000
+Cross-validation accuracy: 0.095072
+method = 2, lambda = 2.000000, Stochastic = 0, Rho = 0.000010, numIter = 1000
+Cross-validation accuracy: 0.940290
+
+fixed l2-norm to l1-norm:
+method = 2, lambda = 2.000000, Stochastic = 0, Rho = 0.000010, numIter = 5000
+Cross-validation accuracy: 0.928116
+method = 2, lambda = 0.500000, Stochastic = 0, Rho = 0.000010, numIter = 5000
+Cross-validation accuracy: 0.943188
+method = 2, lambda = 0.500000, Stochastic = 0, Rho = 0.000100, numIter = 5000
+method = 2, lambda = 0.500000, Stochastic = 0, Rho = 0.000060, numIter = 5000
+method = 2, lambda = 0.500000, Stochastic = 0, Rho = 0.000020, numIter = 5000
+Cross-validation accuracy: 0.940580
+method = 2, lambda = 0.500000, Stochastic = 0, Rho = 0.000040, numIter = 5000
+Cross-validation accuracy: 0.941159
+method = 2, lambda = 0.500000, Stochastic = 0, Rho = 0.000040, numIter = 10000
+Cross-validation accuracy: 0.937391
+method = 3, lambda = 0.010000, Stochastic = 1, Rho = 0.001000, numIter = 3
+Cross-validation accuracy: 0.885217
+method = 2, lambda = 0.100000, Stochastic = 1, Rho = 0.001000, numIter = 3
+Cross-validation accuracy: 0.925217
+method = 2, lambda = 0.100000, Stochastic = 1, Rho = -1.000000, numIter = 3
+Cross-validation accuracy: 0.000000
+method = 2, lambda = 0.000000, Stochastic = 1, Rho = -1.000000, numIter = 3
+Cross-validation accuracy: 0.000000
+method = 3, lambda = 0.100000, Stochastic = 1, Rho = -1.000000, numIter = 3
+Cross-validation accuracy: 0.000000
+method = 1, lambda = 0.100000, Stochastic = 1, Rho = -1.000000, numIter = 3
+Cross-validation accuracy: 0.000000
+method = 1, lambda = 0.500000, Stochastic = 0, Rho = 0.000010, numIter = 5000
+method = 3, lambda = 0.500000, Stochastic = 0, Rho = 0.000010, numIter = 5000
+method = 3, lambda = 0.500000, Stochastic = 0, Rho = 0.000005, numIter = 5000
+Cross-validation accuracy: 0.920580

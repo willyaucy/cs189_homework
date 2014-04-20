@@ -11,7 +11,6 @@ function [W_list,B_list]=singleNN(dataWithLabel)
     W = rand(NUM_CLASSES, numFeatures); % NUM_CLASSES by numFeatures
     B = rand(NUM_CLASSES, 1);
     for e=1:NUM_EPOCHS
-        fprintf('%d\n',e);
         perm = randperm( numData );
         dataWithLabel = dataWithLabel(perm, :);
         for i=0:numBatches-1
@@ -30,6 +29,7 @@ function [W_list,B_list]=singleNN(dataWithLabel)
             B = B - alpha* B_grad;
         end
         if mod(e,10) == 0
+            fprintf('Epoch %d\n',e);
             W_list(:,:,e/10) = W;
             B_list(:,e/10) = B;
         end
