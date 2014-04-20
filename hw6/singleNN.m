@@ -33,8 +33,8 @@ function [W_list,B_list, totalLossList]=singleNN(dataWithLabel, crossEntropyOn)
                 W_grad = W_grad + temp * X'; % NUM_CLASSES by numFeatures
                 B_grad = B_grad + temp;
             end
-            W = W - alpha/e* W_grad;
-            B = B - alpha/e* B_grad;
+            W = W - alpha* decay_function(e, NUM_EPOCHS)* W_grad;
+            B = B - alpha* decay_function(e, NUM_EPOCHS)* B_grad;
         end
         if mod(e,10) == 0
             fprintf('Epoch %d\n',e);
@@ -53,3 +53,5 @@ function result=getMeanSquareLoss(Y, T)
 function result=getCrossEntropyLoss(Y, T)
     result = -1*sum( (T.*log(Y)+(1-T).*log(1-Y)) );
     
+function decay=decay_function(e, n)
+    decay = -1 / (1 + exp(-10*e / n)) + 1;

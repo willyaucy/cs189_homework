@@ -1,7 +1,11 @@
 function [accuracies, totalLoss] = singleNNBenchmark(crossEntropyOn)
-    load('data/train.mat');
-    load('data/test.mat');
     testTrainingData = false;
+    if testTrainingData
+        load('data/train.mat');
+    else
+        load('data/train_small.mat');
+    end
+    load('data/test.mat');
     if testTrainingData
         for i=1:size(train, 2)
             fprintf('Set %d\n',i);
@@ -22,7 +26,7 @@ function [accuracies, totalLoss] = singleNNBenchmark(crossEntropyOn)
             title(['Total Training Error on Training Set ' num2str(i)]);
         end
     else
-        dataWithLabel = preprocessMNIST(train); %train with set 7
+        dataWithLabel = preprocessMNIST(train{7}); %train with set 7
         [W_list,B_list,totalLoss]= singleNN(dataWithLabel, crossEntropyOn);
         numPoints = size(W_list, 3);
         accuracies = size(numPoints, 1);
