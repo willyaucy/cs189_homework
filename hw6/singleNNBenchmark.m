@@ -15,11 +15,10 @@ function singleNNBenchmark()
         figure('Position',[scrsz(1) scrsz(2) scrsz(3) scrsz(4)]);
         subplot(1,2,1);
         plot(accuracies*100, '-xr');
-        title(['Total Training Error on Training Set ' num2str(i)]);
+        title(['Classification Accuracies on Training Set ' num2str(i)]);
         subplot(1,2,2);
         plot(totalLoss, '-xb');
-        title(['Classification Accuracies on Training Set ' num2str(i)]);
-        
+        title(['Total Training Error on Training Set ' num2str(i)]);
     end
     
 function dataWithLabel=preprocessMNIST(dataSet)
