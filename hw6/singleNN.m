@@ -1,10 +1,11 @@
-function result=singleNN(dataWithLabel)
+function classifiers_params=singleNN(dataWithLabel)
     MINI_BATCH_SIZE = 200;
-    NUM_EPOCHS = 10;
+    NUM_EPOCHS = 100;
     NUM_CLASSES = 10;
     numData = size(dataWithLabel, 1);
     numFeatures = size(dataWithLabel, 2) - 1;
     numBatches = ceil(numData/MINI_BATCH_SIZE);
+    classifiers_params = zeros(NUM_EPOCHS/10, 2);
     W = rand(NUM_CLASSES, numFeatures); % NUM_CLASSES by numFeatures
     B = rand(NUM_CLASSES, 1);
     for e=1:NUM_EPOCHS
@@ -35,6 +36,10 @@ function result=singleNN(dataWithLabel)
             W = W + alpha * mean_square_update(Y, labels);
         end
         %}
+        if mod(e,10) == 0
+            classifiers_params(e/10, 1) = W;
+            classifiers_params(e/10, 2) = W;
+        end
     end
     
 function result=sigmoid(X)
