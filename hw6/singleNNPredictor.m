@@ -1,10 +1,17 @@
 function result=singleNNPredictor(W, B, dataWithLabel)
     numData = size(dataWithLabel, 1);
     numFeatures = size(dataWithLabel, 2) - 1;
-    X = dataWithLabel(:, 1:numFeatures); % numData by numFeatures
-    labels = dataWithLabel(:, numFeatures+1);
-    Y = sigmoid(W'*X' + B);  % numClass by numData
-    actualLabels = find(Y==max(Y, 1));
+    error = 0
+    for i=1:numData
+    	X = dataWithLabel(i, 1:numFeatures)'; % numData by numFeatures
+    	label = dataWithLabel(i, numFeatures+1);
+    	Y = sigmoid(W*X + B);
+    	[val, index] = max(Y)
+    	if index - 1 == label
+    		error = error + 1
+    	end
+    end
+    result = error / numData;
     
     
 function result=sigmoid(X)
