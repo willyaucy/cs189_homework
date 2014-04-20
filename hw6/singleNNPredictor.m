@@ -11,8 +11,8 @@ function result=singleNNPredictor(W, B, dataWithLabel)
     		correct = correct + 1;
     	end
     end
-    result = correct / numData
+    result = correct / numData;
     
     
 function result=sigmoid(X)
-    result = 1/(1+exp(-1 * X));
+    result = 1./(1+exp(-1. * X));
