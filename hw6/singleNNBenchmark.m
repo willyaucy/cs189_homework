@@ -23,13 +23,13 @@ function singleNNBenchmark(crossEntropyOn)
             title(['Total Training Error on Training Set ' num2str(i)]);
         end
     else
-        dataWithLabel = preprocessMNIST(test);
+        dataWithLabel = preprocessMNIST(train{7}); %train with set 7
         [W_list,B_list]= singleNN(dataWithLabel, crossEntropyOn);
         numPoints = size(W_list, 3);
         accuracies = size(numPoints, 1);
         totalLoss = size(numPoints, 1);
         for j=1:numPoints
-            [accuracies(j), totalLoss(j)] = singleNNPredictor(W_list(:,:,j), B_list(:,j), dataWithLabel);
+            [accuracies(j), totalLoss(j)] = singleNNPredictor(W_list(:,:,j), B_list(:,j), preprocessMNIST(test));
         end
         scrsz = get(0,'ScreenSize');
         figure('Position',[scrsz(1) scrsz(2) scrsz(3) scrsz(4)]);
