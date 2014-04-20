@@ -1,5 +1,5 @@
 function [accuracies, totalLoss] = singleNNBenchmark(crossEntropyOn)
-    testTrainingData = false;
+    testTrainingData = true;
     if testTrainingData
         t = load('data/train.mat');
     else
@@ -7,26 +7,23 @@ function [accuracies, totalLoss] = singleNNBenchmark(crossEntropyOn)
     end
     load('data/test.mat');
     if testTrainingData
-        for i=1:size(train, 2)
-            fprintf('Set %d\n',i);
-            dataWithLabel = preprocessMNIST(t.train);
-            [W_list, B_list, totalLoss]= singleNN(dataWithLabel, crossEntropyOn);
-            numPoints = size(W_list, 3);
-            accuracies = size(numPoints, 1);
-            for j=1:numPoints
-                accuracies(j) = singleNNPredictor(W_list(:,:,j), B_list(:,j), dataWithLabel, crossEntropyOn);
-            end
-            scrsz = get(0,'ScreenSize');
-            figure('Position',[scrsz(1) scrsz(2) scrsz(3) scrsz(4)]);
-            subplot(1,2,1);
-            plot(accuracies*100, '-xr');
-            title(['Classification Accuracies on Training Set ' num2str(i)]);
-            subplot(1,2,2);
-            plot(totalLoss, '-xb');
-            title(['Total Training Error on Training Set ' num2str(i)]);
+        dataWithLabel = preprocessMNIST(t.train);
+        [W_list, B_list, totalLoss]= singleNN(dataWithLabel, crossEntropyOn);
+        numPoints = size(W_list, 3);
+        accuracies = size(numPoints, 1);
+        for j=1:numPoints
+            accuracies(j) = singleNNPredictor(W_list(:,:,j), B_list(:,j), dataWithLabel, crossEntropyOn);
         end
+        scrsz = get(0,'ScreenSize');
+        figure('Position',[scrsz(1) scrsz(2) scrsz(3) scrsz(4)]);
+        subplot(1,2,1);
+        plot(accuracies*100, '-xr');
+        title(['Classification Accuracies on Training Set ' num2str(i)]);
+        subplot(1,2,2);
+        plot(totalLoss, '-xb');
+        title(['Total Training Error on Training Set ' num2str(i)]);
     else
-        dataWithLabel = preprocessMNIST(t.train{5}); %train with set 7
+        dataWithLabel = preprocessMNIST(t.train{7}); %train with set 7
         [W_list,B_list,totalLoss]= singleNN(dataWithLabel, crossEntropyOn);
         numPoints = size(W_list, 3);
         accuracies = size(numPoints, 1);
