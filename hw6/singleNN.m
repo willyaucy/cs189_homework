@@ -42,7 +42,3 @@ function result=singleNN(dataWithLabel)
 function result=sigmoid(X)
     result = 1/(1+exp(-1 * X));
     
-function mean_square_update(Y, labels)
-    derivative = Y .* (1-Y); % NUM_CLASSES by MINI_BATCH_SIZE
-    derivative * (Y - labels)
-    
