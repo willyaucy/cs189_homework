@@ -12,6 +12,7 @@ function [W_list,B_list, totalLossList]=singleNN(dataWithLabel, crossEntropyOn)
     W = rand(NUM_CLASSES, numFeatures)-0.5; % NUM_CLASSES by numFeatures
     B = rand(NUM_CLASSES, 1)-0.5;
     for e=1:NUM_EPOCHS
+        fprintf('Epoch %d\n',e);
         totalLoss = 0;
         perm = randperm( numData );
         dataWithLabel = dataWithLabel(perm, :);
@@ -37,7 +38,6 @@ function [W_list,B_list, totalLossList]=singleNN(dataWithLabel, crossEntropyOn)
             B = B - alpha* decay_function(e, NUM_EPOCHS)* B_grad;
         end
         if mod(e,10) == 0
-            fprintf('Epoch %d\n',e);
             W_list(:,:,e/10) = W;
             B_list(:,e/10) = B;
             totalLossList(e/10) = totalLoss;
