@@ -4,12 +4,13 @@ function [W_list,B_list,totalLossList]=multiNN(dataWithLabel, crossEntropyOn)
     NUM_CLASSES = 10;
     NUM_NODES_HID1 = 300; % number of nodes in hidden layer 1
     NUM_NODES_HID2 = 100;
+    NUM_LAYERS = 3;
     alpha = 0.5;
     numData = size(dataWithLabel, 1);
     numFeatures = size(dataWithLabel, 2) - 1;
     numBatches = ceil(numData/MINI_BATCH_SIZE);
-    W_list = zeros(NUM_LAYERS, max(numClasses,NUM_NODES_HID1,NUM_NODES_HID2), max(numFeatures,NUM_NODES_HID1,NUM_NODES_HID2), NUM_EPOCHS/10);
-    B_list = zeros(NUM_LAYERS, max(numClasses,NUM_NODES_HID1,NUM_NODES_HID2), NUM_EPOCHS/10);
+    W_list = zeros(NUM_LAYERS, max(NUM_NODES_HID1,NUM_NODES_HID2), numFeatures, NUM_EPOCHS/10);
+    B_list = zeros(NUM_LAYERS, max(NUM_NODES_HID1,NUM_NODES_HID2), NUM_EPOCHS/10);
     totalLossList = zeros(NUM_EPOCHS/10,1);
     W1 = rand(NUM_NODES_HID1, numFeatures)-0.5; % NUM_NODES_HID1 by numFeatures
     B1 = rand(NUM_NODES_HID1, 1)-0.5; % NUM_NODES_HID1 by 1
@@ -72,9 +73,6 @@ function [W_list,B_list,totalLossList]=multiNN(dataWithLabel, crossEntropyOn)
             totalLossList(e/10) = totalLoss;
         end
     end
-    
-function result=sigmoid(X)
-    result = 1./(1+exp(-1. * X));
     
 function result=getMeanSquareLoss(Y, T)
     result = sum((Y-T).^2)/2;

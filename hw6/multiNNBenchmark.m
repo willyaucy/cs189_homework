@@ -1,5 +1,5 @@
 function [accuracies, totalLoss] = multiNNBenchmark(crossEntropyOn)
-    testTrainingData = true;
+    testTrainingData = false;
     if testTrainingData
         t = load('data/train.mat');
     else
@@ -8,11 +8,11 @@ function [accuracies, totalLoss] = multiNNBenchmark(crossEntropyOn)
     load('data/test.mat');
     if testTrainingData
         dataWithLabel = preprocessMNIST(t.train);
-        [W_list, B_list, totalLoss]= singleNN(dataWithLabel, crossEntropyOn);
+        [W_list, B_list, totalLoss]= multiNN(dataWithLabel, crossEntropyOn);
         numPoints = size(W_list, 4);
         accuracies = size(numPoints, 1);
         for j=1:numPoints
-            accuracies(j) = singleNNPredictor(W_list(:,:,:,j), B_list(:,:,j), dataWithLabel);
+            accuracies(j) = multiNNPredictor(W_list(:,:,:,j), B_list(:,:,j), dataWithLabel);
         end
         scrsz = get(0,'ScreenSize');
         figure('Position',[scrsz(1) scrsz(2) scrsz(3) scrsz(4)]);
@@ -23,12 +23,12 @@ function [accuracies, totalLoss] = multiNNBenchmark(crossEntropyOn)
         plot(totalLoss, '-xb');
         title(['Total Training Error on Training Set']);
     else
-        dataWithLabel = preprocessMNIST(t.train{7}); %train with set 7
-        [W_list,B_list,totalLoss]= singleNN(dataWithLabel, crossEntropyOn);
+        dataWithLabel = preprocessMNIST(t.train{1}); %train with set 7
+        [W_list,B_list,totalLoss]= multiNN(dataWithLabel, crossEntropyOn);
         numPoints = size(W_list, 4);
         accuracies = size(numPoints, 1);
         for j=1:numPoints
-            accuracies(j) = singleNNPredictor(W_list(:,:,:,j), B_list(:,:,j), preprocessMNIST(test));
+            accuracies(j) = multiNNPredictor(W_list(:,:,:,j), B_list(:,:,j), preprocessMNIST(test));
         end
         scrsz = get(0,'ScreenSize');
         figure('Position',[scrsz(1) scrsz(2) scrsz(3) scrsz(4)]);
