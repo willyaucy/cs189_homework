@@ -5,19 +5,30 @@ function [W_list,B_list,totalLossList]=multiNN(dataWithLabel, crossEntropyOn)
     NUM_NODES_HID1 = 300; % number of nodes in hidden layer 1
     NUM_NODES_HID2 = 100;
     NUM_LAYERS = 3;
-    alpha = 0.01;
     numData = size(dataWithLabel, 1);
+    alpha = 1.0/numData;
     numFeatures = size(dataWithLabel, 2) - 1;
     numBatches = ceil(numData/MINI_BATCH_SIZE);
     W_list = zeros(NUM_LAYERS, max(NUM_NODES_HID1,NUM_NODES_HID2), numFeatures, NUM_EPOCHS/10);
     B_list = zeros(NUM_LAYERS, max(NUM_NODES_HID1,NUM_NODES_HID2), NUM_EPOCHS/10);
     totalLossList = zeros(NUM_EPOCHS/10,1);
-    W1 = rand(NUM_NODES_HID1, numFeatures)-0.5; % NUM_NODES_HID1 by numFeatures
-    B1 = rand(NUM_NODES_HID1, 1)-0.5; % NUM_NODES_HID1 by 1
-    W2 = rand(NUM_NODES_HID2, NUM_NODES_HID1)-0.5; % NUM_NODES_HID2 by NUM_NODES_HID1
-    B2 = rand(NUM_NODES_HID2, 1)-0.5; % NUM_NODES_HID2 by 1
-    W3 = rand(NUM_CLASSES, NUM_NODES_HID2)-0.5; % NUM_CLASSES by NUM_NODES_HID2
-    B3 = rand(NUM_CLASSES, 1)-0.5; % NUM_CLASSES by 1
+    if crossEntropyOn
+        offFactor = 1;
+        W1 = (rand(NUM_NODES_HID1, numFeatures)-0.5)/offFactor; % NUM_NODES_HID1 by numFeatures
+        B1 = (rand(NUM_NODES_HID1, 1)-0.5)/offFactor; % NUM_NODES_HID1 by 1
+        W2 = (rand(NUM_NODES_HID2, NUM_NODES_HID1)-0.5)/offFactor; % NUM_NODES_HID2 by NUM_NODES_HID1
+        B2 = (rand(NUM_NODES_HID2, 1)-0.5)/offFactor; % NUM_NODES_HID2 by 1
+        W3 = (rand(NUM_CLASSES, NUM_NODES_HID2)-0.5)/offFactor; % NUM_CLASSES by NUM_NODES_HID2
+        B3 = (rand(NUM_CLASSES, 1)-0.5)/offFactor; % NUM_CLASSES by 1
+    else
+        W1 = rand(NUM_NODES_HID1, numFeatures)-0.5; % NUM_NODES_HID1 by numFeatures
+        B1 = rand(NUM_NODES_HID1, 1)-0.5; % NUM_NODES_HID1 by 1
+        W2 = rand(NUM_NODES_HID2, NUM_NODES_HID1)-0.5; % NUM_NODES_HID2 by NUM_NODES_HID1
+        B2 = rand(NUM_NODES_HID2, 1)-0.5; % NUM_NODES_HID2 by 1
+        W3 = rand(NUM_CLASSES, NUM_NODES_HID2)-0.5; % NUM_CLASSES by NUM_NODES_HID2
+        B3 = rand(NUM_CLASSES, 1)-0.5; % NUM_CLASSES by 1
+    end
+    EPS = 0.00000000000000000000000000001;
     for e=1:NUM_EPOCHS
         fprintf('Epoch %d\n',e);
         totalLoss = 0;
@@ -41,7 +52,7 @@ function [W_list,B_list,totalLossList]=multiNN(dataWithLabel, crossEntropyOn)
                 T = zeros(NUM_CLASSES, 1);
                 T(dataWithLabel(i*MINI_BATCH_SIZE + j, numFeatures+1)+1) = 1;
                 if crossEntropyOn
-                    delta3 = diag(Y.*(1-Y)) * (- T./(Y+0.00000001) + (1-T)./(1.00000001-Y));
+                    delta3 = diag(Y.*(1-Y)) * (- T./(Y+EPS) + (1-T)./(1+EPS-Y));
                     totalLoss = totalLoss + getCrossEntropyLoss(Y, T);
                 else
                     delta3 = diag(Y.*(1-Y)) * (Y - T); % NUM_CLASSES by 1
@@ -70,8 +81,9 @@ function [W_list,B_list,totalLossList]=multiNN(dataWithLabel, crossEntropyOn)
             B_list(2,1:NUM_NODES_HID2,e/10) = B2;
             W_list(3,1:NUM_CLASSES,1:NUM_NODES_HID2,e/10) = W3; % NUM_CLASSES by NUM_NODES_HID2
             B_list(3,1:NUM_CLASSES,e/10) = B3;
-            totalLossList(e/10) = totalLoss
+            totalLossList(e/10) = totalLoss;
         end
+        fprintf('%d\n',totalLoss);
     end
     
 function result=getMeanSquareLoss(Y, T)
