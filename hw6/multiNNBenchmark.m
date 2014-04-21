@@ -1,10 +1,6 @@
 function [accuracies, totalLoss] = multiNNBenchmark(crossEntropyOn)
     testTrainingData = false;
-    if testTrainingData
-        t = load('data/train.mat');
-    else
-        t = load('data/train_small.mat');
-    end
+    t = load('data/train.mat');
     load('data/test.mat');
     if testTrainingData
         dataWithLabel = preprocessMNIST(t.train);
@@ -23,7 +19,7 @@ function [accuracies, totalLoss] = multiNNBenchmark(crossEntropyOn)
         plot(totalLoss, '-xb');
         title(['Total Training Error on Training Set']);
     else
-        dataWithLabel = preprocessMNIST(t.train{4}); %train with set 7
+        dataWithLabel = preprocessMNIST(t.train); %train with set 7
         [W_list,B_list,totalLoss]= multiNN(dataWithLabel, crossEntropyOn);
         numPoints = size(W_list, 4);
         accuracies = size(numPoints, 1);

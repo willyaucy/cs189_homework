@@ -1,0 +1,13 @@
+Methods Breakdown
+
+singleNN(): single layer neural network trainer
+singleNNPredictor(): a predictor function that takes in the classifier's params and the testing set
+singleNNBenchmark(): computes the accuracies and plots various graphs needed in hw
+multiNN(): multi-layer neural network trainer
+multiNNPredictor(): a predictor function that takes in the classifier's params and the testing set
+multiNNBenchmark(): computes the accuracies and plots various graphs needed in hw
+
+Extra Features
+
+- decaying learning rate with carefully chosen decay function
+- enabling cross entropy training mode by passing in parameter
