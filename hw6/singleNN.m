@@ -44,9 +44,6 @@ function [W_list,B_list, totalLossList]=singleNN(dataWithLabel, crossEntropyOn)
         end
     end
     
-function result=sigmoid(X)
-    result = 1./(1+exp(-1. * X));
-    
 function result=getMeanSquareLoss(Y, T)
     result = sum((Y-T).^2)/2;
     

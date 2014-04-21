@@ -1,4 +1,4 @@
-function accuracy = singleNNPredictor(W, B, dataWithLabel, crossEntropyOn)
+function accuracy = singleNNPredictor(W, B, dataWithLabel)
     numData = size(dataWithLabel, 1);
     numFeatures = size(dataWithLabel, 2) - 1;
     correct = 0;
