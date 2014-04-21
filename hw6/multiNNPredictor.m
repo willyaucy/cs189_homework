@@ -11,14 +11,15 @@ function accuracy = multiNNPredictor(multiLayerW, multiLayerB, dataWithLabel)
     B1 = multiLayerB(1, 1:NUM_NODES_HID1)';
     B2 = multiLayerB(2, 1:NUM_NODES_HID2)';
     B3 = multiLayerB(3, 1:NUM_CLASSES)';
+    %disp(W3);
     for i=1:numData
     	X1 = dataWithLabel(i, 1:numFeatures)'; % numFeatures by 1
         label = dataWithLabel(i, numFeatures+1);
-        S1 = getS(W1, X1, B1);
-        tanhS1 = tanh(S1);
-        S2 = getS(W2, tanhS1, B2);
-        tanhS2 = tanh(S2);
-        S3 = getS(W3, tanhS2, B3);
+        S1 = getS(W1, X1, B1); % NUM_NODES_HID1 by 1
+        tanhS1 = tanh(S1); % NUM_NODES_HID1 by 1
+        S2 = getS(W2, tanhS1, B2); % NUM_NODES_HID2 by 1
+        tanhS2 = tanh(S2); % NUM_NODES_HID2 by 1
+        S3 = getS(W3, tanhS2, B3); % NUM_CLASSES 1
         Y = sigmoid(S3); % NUM_CLASSES by 1
     	[val, index] = max(Y);
     	if index - 1 == label
