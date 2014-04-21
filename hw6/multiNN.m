@@ -1,6 +1,6 @@
 function [W_list,B_list,totalLossList]=multiNN(dataWithLabel, crossEntropyOn)
     MINI_BATCH_SIZE = 200;
-    NUM_EPOCHS = 300;
+    NUM_EPOCHS = 150;
     NUM_CLASSES = 10;
     NUM_NODES_HID1 = 300; % number of nodes in hidden layer 1
     NUM_NODES_HID2 = 100;
@@ -70,7 +70,7 @@ function [W_list,B_list,totalLossList]=multiNN(dataWithLabel, crossEntropyOn)
             B_list(2,1:NUM_NODES_HID2,e/10) = B2;
             W_list(3,1:NUM_CLASSES,1:NUM_NODES_HID2,e/10) = W3; % NUM_CLASSES by NUM_NODES_HID2
             B_list(3,1:NUM_CLASSES,e/10) = B3;
-            totalLossList(e/10) = totalLoss;
+            totalLossList(e/10) = totalLoss
         end
     end
     
@@ -81,7 +81,7 @@ function result=getCrossEntropyLoss(Y, T)
     result = -1*sum( (T.*log(Y)+(1-T).*log(1-Y)) );
     
 function decay=decay_function(e, n)
-    decay = -1 / (1 + exp(-10*e / n)) + 1;
+    decay = -1 / (1 + exp(-5*e / n)) + 1;
     
 function outputCurrent=getS(weightCurrent, XCurrent, biasCurrent)
     outputCurrent = weightCurrent * XCurrent + biasCurrent;
