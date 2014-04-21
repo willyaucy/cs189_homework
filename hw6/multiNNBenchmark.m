@@ -12,23 +12,23 @@ function [accuracies, totalLoss] = multiNNBenchmark(crossEntropyOn)
         numPoints = size(W_list, 4);
         accuracies = size(numPoints, 1);
         for j=1:numPoints
-            accuracies(j) = singleNNPredictor(W_list(:,:,j), B_list(:,j), dataWithLabel);
+            accuracies(j) = singleNNPredictor(W_list(:,:,:,j), B_list(:,:,j), dataWithLabel);
         end
         scrsz = get(0,'ScreenSize');
         figure('Position',[scrsz(1) scrsz(2) scrsz(3) scrsz(4)]);
         subplot(1,2,1);
         plot(accuracies*100, '-xr');
-        title(['Classification Accuracies on Training Set ' num2str(i)]);
+        title(['Classification Accuracies on Training Set']);
         subplot(1,2,2);
         plot(totalLoss, '-xb');
-        title(['Total Training Error on Training Set ' num2str(i)]);
+        title(['Total Training Error on Training Set']);
     else
         dataWithLabel = preprocessMNIST(t.train{7}); %train with set 7
         [W_list,B_list,totalLoss]= singleNN(dataWithLabel, crossEntropyOn);
         numPoints = size(W_list, 4);
         accuracies = size(numPoints, 1);
         for j=1:numPoints
-            accuracies(j) = singleNNPredictor(W_list(:,:,j), B_list(:,j), preprocessMNIST(test));
+            accuracies(j) = singleNNPredictor(W_list(:,:,:,j), B_list(:,:,j), preprocessMNIST(test));
         end
         scrsz = get(0,'ScreenSize');
         figure('Position',[scrsz(1) scrsz(2) scrsz(3) scrsz(4)]);
