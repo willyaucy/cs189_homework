@@ -1,33 +1,37 @@
 function [W_list,B_list,totalLossList]=multiNN(dataWithLabel, crossEntropyOn)
     MINI_BATCH_SIZE = 200;
-    NUM_EPOCHS = 150;
+    if crossEntropyOn
+        NUM_EPOCHS = 20;
+    else
+        NUM_EPOCHS = 150;
+    end
     NUM_CLASSES = 10;
     NUM_NODES_HID1 = 300; % number of nodes in hidden layer 1
     NUM_NODES_HID2 = 100;
     NUM_LAYERS = 3;
     numData = size(dataWithLabel, 1);
-    alpha = 1.0/numData;
+    if crossEntropyOn
+        alpha = 0.004;
+    else
+        alpha = 0.01;
+    end
     numFeatures = size(dataWithLabel, 2) - 1;
     numBatches = ceil(numData/MINI_BATCH_SIZE);
-    W_list = zeros(NUM_LAYERS, max(NUM_NODES_HID1,NUM_NODES_HID2), numFeatures, NUM_EPOCHS/10);
-    B_list = zeros(NUM_LAYERS, max(NUM_NODES_HID1,NUM_NODES_HID2), NUM_EPOCHS/10);
-    totalLossList = zeros(NUM_EPOCHS/10,1);
     if crossEntropyOn
-        offFactor = 1;
-        W1 = (rand(NUM_NODES_HID1, numFeatures)-0.5)/offFactor; % NUM_NODES_HID1 by numFeatures
-        B1 = (rand(NUM_NODES_HID1, 1)-0.5)/offFactor; % NUM_NODES_HID1 by 1
-        W2 = (rand(NUM_NODES_HID2, NUM_NODES_HID1)-0.5)/offFactor; % NUM_NODES_HID2 by NUM_NODES_HID1
-        B2 = (rand(NUM_NODES_HID2, 1)-0.5)/offFactor; % NUM_NODES_HID2 by 1
-        W3 = (rand(NUM_CLASSES, NUM_NODES_HID2)-0.5)/offFactor; % NUM_CLASSES by NUM_NODES_HID2
-        B3 = (rand(NUM_CLASSES, 1)-0.5)/offFactor; % NUM_CLASSES by 1
+        W_list = zeros(NUM_LAYERS, max(NUM_NODES_HID1,NUM_NODES_HID2), numFeatures, NUM_EPOCHS);
+        B_list = zeros(NUM_LAYERS, max(NUM_NODES_HID1,NUM_NODES_HID2), NUM_EPOCHS);
+        totalLossList = zeros(NUM_EPOCHS,1);        
     else
-        W1 = rand(NUM_NODES_HID1, numFeatures)-0.5; % NUM_NODES_HID1 by numFeatures
-        B1 = rand(NUM_NODES_HID1, 1)-0.5; % NUM_NODES_HID1 by 1
-        W2 = rand(NUM_NODES_HID2, NUM_NODES_HID1)-0.5; % NUM_NODES_HID2 by NUM_NODES_HID1
-        B2 = rand(NUM_NODES_HID2, 1)-0.5; % NUM_NODES_HID2 by 1
-        W3 = rand(NUM_CLASSES, NUM_NODES_HID2)-0.5; % NUM_CLASSES by NUM_NODES_HID2
-        B3 = rand(NUM_CLASSES, 1)-0.5; % NUM_CLASSES by 1
+        W_list = zeros(NUM_LAYERS, max(NUM_NODES_HID1,NUM_NODES_HID2), numFeatures, NUM_EPOCHS/10);
+        B_list = zeros(NUM_LAYERS, max(NUM_NODES_HID1,NUM_NODES_HID2), NUM_EPOCHS/10);
+        totalLossList = zeros(NUM_EPOCHS/10,1);
     end
+    W1 = rand(NUM_NODES_HID1, numFeatures)-0.5; % NUM_NODES_HID1 by numFeatures
+    B1 = rand(NUM_NODES_HID1, 1)-0.5; % NUM_NODES_HID1 by 1
+    W2 = rand(NUM_NODES_HID2, NUM_NODES_HID1)-0.5; % NUM_NODES_HID2 by NUM_NODES_HID1
+    B2 = rand(NUM_NODES_HID2, 1)-0.5; % NUM_NODES_HID2 by 1
+    W3 = rand(NUM_CLASSES, NUM_NODES_HID2)-0.5; % NUM_CLASSES by NUM_NODES_HID2
+    B3 = rand(NUM_CLASSES, 1)-0.5; % NUM_CLASSES by 1
     EPS = 0.00000000000000000000000000001;
     for e=1:NUM_EPOCHS
         fprintf('Epoch %d\n',e);
@@ -74,14 +78,24 @@ function [W_list,B_list,totalLossList]=multiNN(dataWithLabel, crossEntropyOn)
             W1 = W1 - alpha* decay_function(e, NUM_EPOCHS)* W1_grad;
             B1 = B1 - alpha* decay_function(e, NUM_EPOCHS)* B1_grad;
         end
-        if mod(e,10) == 0
-            W_list(1,1:NUM_NODES_HID1,1:numFeatures,e/10) = W1; % 3 by NUM_NODES_HID1 by numFeatures by NUM_EPOCHS/10
-            B_list(1,1:NUM_NODES_HID1,e/10) = B1;
-            W_list(2,1:NUM_NODES_HID2,1:NUM_NODES_HID1,e/10) = W2; % NUM_NODES_HID2 by NUM_NODES_HID1
-            B_list(2,1:NUM_NODES_HID2,e/10) = B2;
-            W_list(3,1:NUM_CLASSES,1:NUM_NODES_HID2,e/10) = W3; % NUM_CLASSES by NUM_NODES_HID2
-            B_list(3,1:NUM_CLASSES,e/10) = B3;
-            totalLossList(e/10) = totalLoss;
+        if crossEntropyOn
+            W_list(1,1:NUM_NODES_HID1,1:numFeatures,e) = W1; % 3 by NUM_NODES_HID1 by numFeatures by NUM_EPOCHS/10
+            B_list(1,1:NUM_NODES_HID1,e) = B1;
+            W_list(2,1:NUM_NODES_HID2,1:NUM_NODES_HID1,e) = W2; % NUM_NODES_HID2 by NUM_NODES_HID1
+            B_list(2,1:NUM_NODES_HID2,e) = B2;
+            W_list(3,1:NUM_CLASSES,1:NUM_NODES_HID2,e) = W3; % NUM_CLASSES by NUM_NODES_HID2
+            B_list(3,1:NUM_CLASSES,e) = B3;
+            totalLossList(e) = totalLoss;          
+        else
+            if mod(e,10) == 0
+                W_list(1,1:NUM_NODES_HID1,1:numFeatures,e/10) = W1; % 3 by NUM_NODES_HID1 by numFeatures by NUM_EPOCHS/10
+                B_list(1,1:NUM_NODES_HID1,e/10) = B1;
+                W_list(2,1:NUM_NODES_HID2,1:NUM_NODES_HID1,e/10) = W2; % NUM_NODES_HID2 by NUM_NODES_HID1
+                B_list(2,1:NUM_NODES_HID2,e/10) = B2;
+                W_list(3,1:NUM_CLASSES,1:NUM_NODES_HID2,e/10) = W3; % NUM_CLASSES by NUM_NODES_HID2
+                B_list(3,1:NUM_CLASSES,e/10) = B3;
+                totalLossList(e/10) = totalLoss;
+            end
         end
         fprintf('%d\n',totalLoss);
     end
