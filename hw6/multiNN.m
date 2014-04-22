@@ -1,7 +1,7 @@
 function [W_list,B_list,totalLossList]=multiNN(dataWithLabel, crossEntropyOn)
     MINI_BATCH_SIZE = 200;
     if crossEntropyOn
-        NUM_EPOCHS = 70;
+        NUM_EPOCHS = 60;
     else
         NUM_EPOCHS = 150;
     end
@@ -11,7 +11,7 @@ function [W_list,B_list,totalLossList]=multiNN(dataWithLabel, crossEntropyOn)
     NUM_LAYERS = 3;
     numData = size(dataWithLabel, 1);
     if crossEntropyOn
-        alpha = 0.005;
+        alpha = 0.004;
     else
         alpha = 0.01;
     end
@@ -80,13 +80,13 @@ function [W_list,B_list,totalLossList]=multiNN(dataWithLabel, crossEntropyOn)
         end
         if crossEntropyOn
             if mod(e, 5) == 0
-                W_list(1,1:NUM_NODES_HID1,1:numFeatures,e) = W1; % 3 by NUM_NODES_HID1 by numFeatures by NUM_EPOCHS/10
-                B_list(1,1:NUM_NODES_HID1,e) = B1;
-                W_list(2,1:NUM_NODES_HID2,1:NUM_NODES_HID1,e) = W2; % NUM_NODES_HID2 by NUM_NODES_HID1
-                B_list(2,1:NUM_NODES_HID2,e) = B2;
-                W_list(3,1:NUM_CLASSES,1:NUM_NODES_HID2,e) = W3; % NUM_CLASSES by NUM_NODES_HID2
-                B_list(3,1:NUM_CLASSES,e) = B3;
-                totalLossList(e) = totalLoss;
+                W_list(1,1:NUM_NODES_HID1,1:numFeatures,e/5) = W1; % 3 by NUM_NODES_HID1 by numFeatures by NUM_EPOCHS/10
+                B_list(1,1:NUM_NODES_HID1,e/5) = B1;
+                W_list(2,1:NUM_NODES_HID2,1:NUM_NODES_HID1,e/5) = W2; % NUM_NODES_HID2 by NUM_NODES_HID1
+                B_list(2,1:NUM_NODES_HID2,e/5) = B2;
+                W_list(3,1:NUM_CLASSES,1:NUM_NODES_HID2,e/5) = W3; % NUM_CLASSES by NUM_NODES_HID2
+                B_list(3,1:NUM_CLASSES,e/5) = B3;
+                totalLossList(e/5) = totalLoss;
             end         
         else
             if mod(e,10) == 0
