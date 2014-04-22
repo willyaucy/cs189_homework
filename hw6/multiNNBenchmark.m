@@ -1,4 +1,4 @@
-function [accuracies, totalLoss] = multiNNBenchmark(crossEntropyOn)
+function [accuracies, totalLoss, W_list, B_list] = multiNNBenchmark(crossEntropyOn)
     testTrainingData = false;
     t = load('data/train.mat');
     load('data/test.mat');
