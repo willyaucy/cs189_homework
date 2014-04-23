@@ -1,3 +1,8 @@
+CS189 Homework 6
+Alvin Wong -cq, 22655478
+Wai Meng Lei -dy, 23985541
+Chun Yin Yau -em, 24023460
+
 Methods Breakdown
 
 singleNN(): single layer neural network trainer
@@ -11,3 +16,5 @@ Extra Features
 
 - decaying learning rate with carefully chosen decay function
 - enabling cross entropy training mode by passing in parameter
+
+This is all explained in the writeup.
