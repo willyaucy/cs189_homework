@@ -11,7 +11,7 @@ function [W_list,B_list,totalLossList]=multiNN(dataWithLabel, crossEntropyOn)
     NUM_LAYERS = 3;
     numData = size(dataWithLabel, 1);
     if crossEntropyOn
-        alpha = 0.004;
+        alpha = 0.005;
     else
         alpha = 0.01;
     end
