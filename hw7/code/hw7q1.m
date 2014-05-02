@@ -3,6 +3,7 @@ function result = hw7q1()
     k = [5 10 20];
     data = preprocessMNIST(t.train{1});
     for i=1:size(k, 2)
+        disp(['Clustering with ' num2str(k(i)) ' means']);
         means = kmeans(data, k(i));
         for j=1:k(i)
             scrsz = get(0,'ScreenSize');
@@ -20,5 +21,6 @@ function data=preprocessMNIST(dataSet)
     for i=1:numData
         image = double(reshape(dataSet.images(:,:,i), numElem, 1))';
         image = image / norm(image);
-        data = image;
+        data(i, :) = image;
     end
+    

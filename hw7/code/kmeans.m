@@ -1,6 +1,6 @@
 function means = kmeans(data, k)
     numData = size(data, 1);
-    numFeatures = size(data, 2) - 1;
+    numFeatures = size(data, 2);
     maxValues = max(data(:,1:numFeatures), 1); %row vec of maxValues of each feature
     minValues = min(data(:,1:numFeatures), 1);
     means = rand(k, numFeatures) .* repmat(maxValues, k, 1) + repmat(minValues, k, 1); %initialize means (random choice)
