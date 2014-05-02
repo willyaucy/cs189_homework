@@ -5,12 +5,14 @@ function result = hw7q1()
     for i=1:size(k, 2)
         disp(['Clustering with ' num2str(k(i)) ' means']);
         means = kmeans(data, k(i));
+        scrsz = get(0,'ScreenSize');
+        figure('Position',[scrsz(1) scrsz(2) scrsz(3) scrsz(4)]);
         for j=1:k(i)
-            scrsz = get(0,'ScreenSize');
-            figure('Position',[scrsz(1) scrsz(2) scrsz(3) scrsz(4)]);
-            subplot(ceil(k/2),2,j);
-            imagesc(reshape(means(j), numel(means), 1));
+            %disp(means(j));
+            subplot(ceil(k(i)/2),2,j);
+            imagesc(reshape(means(j,:), sqrt(numel(means(j,:))), sqrt(numel(means(j,:)))));
             title(['Mean ' j]);
+            colorbar;
         end
     end
 
