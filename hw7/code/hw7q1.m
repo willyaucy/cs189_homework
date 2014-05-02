@@ -1,9 +1,16 @@
 function result = hw7q1()
     t = load('../data/train_small.mat');
     k = [5 10 20];
-    dataWithLabel = preprocessMNIST(t.train{1});
+    data = preprocessMNIST(t.train{1});
     for i=size(k, 2)
-        kmeans(dataWithLabel, k);
+        means = kmeans(data, k(i));
+        for j=1:k(i)
+            scrsz = get(0,'ScreenSize');
+            figure('Position',[scrsz(1) scrsz(2) scrsz(3) scrsz(4)]);
+            subplot(ceil(k/2),2,j);
+            imagesc(reshape(means(j), numel(means), 1));
+            title(['Mean ' j]);
+        end
     end
 
 function data=preprocessMNIST(dataSet)
