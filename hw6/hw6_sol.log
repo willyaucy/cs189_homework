@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2014.1.6)  22 APR 2014 21:09
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2014.1.6)  22 APR 2014 22:32
 entering extended mode
 **C:/Users/Alvin/Desktop/CS189/hw6_2/hw6/hw6_sol.tex
 (C:/Users/Alvin/Desktop/CS189/hw6_2/hw6/hw6_sol.tex
@@ -642,170 +642,22 @@ Underfull \hbox (badness 10000) in paragraph at lines 39--43
 
  []
 
-[1
-
-{C:/Users/Alvin/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
-<plots/finalp1mse.png, id=19, 1192.455pt x 618.0331pt>
-File: plots/finalp1mse.png Graphic file (type png)
-
-<use plots/finalp1mse.png>
-Package pdftex.def Info: plots/finalp1mse.png used on input line 59.
-(pdftex.def)             Requested size: 512.1496pt x 265.43784pt.
-
-Overfull \hbox (6.2596pt too wide) in paragraph at lines 59--61
- [][] 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 52--65
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 52--65
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 52--65
-
- []
-
-[2 <C:/Users/Alvin/Desktop/CS189/hw6_2/hw6/plots/finalp1mse.png (PNG copy)>]
-<plots/finalp1ce.png, id=24, 1192.455pt x 618.0331pt>
-File: plots/finalp1ce.png Graphic file (type png)
-
-<use plots/finalp1ce.png>
-Package pdftex.def Info: plots/finalp1ce.png used on input line 72.
-(pdftex.def)             Requested size: 512.1496pt x 265.43784pt.
-
-Overfull \hbox (6.2596pt too wide) in paragraph at lines 72--74
- [][] 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 79--94
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 79--94
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 79--94
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 79--94
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 79--94
-
- []
-
-[3 <C:/Users/Alvin/Desktop/CS189/hw6_2/hw6/plots/finalp1ce.png (PNG copy)>]
-Underfull \hbox (badness 10000) in paragraph at lines 97--127
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 97--127
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 97--127
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 97--127
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 97--127
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 97--127
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 97--127
-
- []
-
-[4] <plots/finalp2mse.png, id=32, 1028.34187pt x 520.19344pt>
-File: plots/finalp2mse.png Graphic file (type png)
-
-<use plots/finalp2mse.png>
-Package pdftex.def Info: plots/finalp2mse.png used on input line 135.
-(pdftex.def)             Requested size: 512.1496pt x 259.08006pt.
-
-Overfull \hbox (6.2596pt too wide) in paragraph at lines 135--137
- [][] 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 130--140
-
- []
-
-[5 <C:/Users/Alvin/Desktop/CS189/hw6_2/hw6/plots/finalp2mse.png (PNG copy)>]
-<plots/finalp2ce.png, id=36, 1192.455pt x 618.0331pt>
-File: plots/finalp2ce.png Graphic file (type png)
-
-<use plots/finalp2ce.png>
-Package pdftex.def Info: plots/finalp2ce.png used on input line 147.
-(pdftex.def)             Requested size: 512.1496pt x 265.43784pt.
-
-Overfull \hbox (6.2596pt too wide) in paragraph at lines 147--149
- [][] 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 142--150
-
- []
-
-[6 <C:/Users/Alvin/Desktop/CS189/hw6_2/hw6/plots/finalp2ce.png (PNG copy)>]
-(C:\Users\Alvin\Desktop\CS189\hw6_2\hw6\hw6_sol.aux)
-
-LaTeX Warning: There were multiply-defined labels.
-
- ) 
+! I can't write on file `hw6_sol.pdf'.
+Please type another file name for output: 
+! Emergency stop.
+\@EveryShipout@Output ...@Org@Shipout \box \@cclv 
+                                                  
+l.45 \newpage
+             
+End of file on the terminal!
+
+ 
 Here is how much of TeX's memory you used:
- 11495 strings out of 493921
- 214137 string characters out of 3144877
+ 11467 strings out of 493921
+ 213540 string characters out of 3144877
  258979 words of memory out of 3000000
- 14560 multiletter control sequences out of 15000+200000
- 11398 words of font info for 43 fonts, out of 3000000 for 9000
+ 14543 multiletter control sequences out of 15000+200000
+ 11045 words of font info for 42 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
- 56i,8n,55p,796b,233s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb>
-<C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C
-:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/
-Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Pr
-ogram Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Progr
-am Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Program 
-Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Fil
-es (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program Files 
-(x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Program Files (x8
-6)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Program Files (x86)/M
-iKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsl10.pfb><C:/Program Files (x86)/MiK
-TeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files (x86)/MiKTe
-X 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
-Output written on hw6_sol.pdf (6 pages, 219590 bytes).
-PDF statistics:
- 80 PDF objects out of 1000 (max. 8388607)
- 0 named destinations out of 1000 (max. 500000)
- 33 words of extra memory for PDF output out of 10000 (max. 10000000)
-
+ 56i,8n,55p,473b,197s stack positions out of 5000i,500n,10000p,200000b,50000s
+!  ==> Fatal error occurred, no output PDF file produced!
