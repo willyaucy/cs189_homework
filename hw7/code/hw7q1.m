@@ -1,7 +1,7 @@
 function result = hw7q1()
     t = load('../data/train_small.mat');
     k = [5 10 20];
-    data = preprocessMNIST(t.train{1});
+    data = preprocessMNIST(t.train{7});
     for i=1:size(k, 2)
         disp(['Clustering with ' num2str(k(i)) ' means']);
         means = kmeans(data, k(i));
