@@ -7,8 +7,12 @@ function hw7q2a()
 	for i=1:10
 		eigenvector = u(:,i);
 		full_im = zeros(size(mask(:,:,1)));
-		full_im(unmasked_pixels) = eigenvector;
+		full_im(unmasked_pixels) = normalize_vec(eigenvector);
 		figure;
-		imagesc(full_im);
+		imshow(full_im);
 		colormap(gray);
 	end
+
+function vec = normalize_vec(vec)
+	vec = vec ./ ( max(vec) - min(vec) );
+	vec = vec - min(vec);

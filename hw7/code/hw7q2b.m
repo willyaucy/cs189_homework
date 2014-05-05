@@ -1,5 +1,5 @@
 function hw7q2b()
-	NUM_EIGEN = 10;
+	NUM_EIGEN = 50;
 	load('mask.mat');
 	unmasked_pixels = find(mask(:,:,1));
 	data = preprocessCelebrityData(unmasked_pixels); % 158 x 17317
@@ -19,18 +19,21 @@ function hw7q2b()
 			errors(i) = errors(i) + norm(face - mean_chosen5(j)') / 5;
 			if i==NUM_EIGEN
 				face = face + mean_chosen5(j,:)';
-				full_im = zeros(size(mask(:,:,1)));
-				full_im(unmasked_pixels) = face;
+        		full_im = zeros(size(mask(:,:,1)));
+				full_im(unmasked_pixels) = normalize_vec(chosen5(j,:)');
 				figure('Position',[100 100 600 300]);
         		subplot(1,2,1);
-        		imagesc(full_im);
+        		imshow(full_im);
         		colormap(gray);
-        		full_im = zeros(size(mask(:,:,1)));
-				full_im(unmasked_pixels) = chosen5(j,:)';
+				full_im = zeros(size(mask(:,:,1)));
+				full_im(unmasked_pixels) = normalize_vec(face);
         		subplot(1,2,2);
-				imagesc(full_im);
+				imshow(full_im);
 				colormap(gray);
 			end
 		end
 	end
-	errors
+
+function vec = normalize_vec(vec)
+	vec = vec ./ ( max(vec) - min(vec) );
+	vec = vec - min(vec);
