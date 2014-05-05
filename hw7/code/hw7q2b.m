@@ -10,10 +10,10 @@ function hw7q2b()
 	mean_chosen5 = chosen5 - repmat(mean(data,1), 5, 1);
 	[u,s,v] = svd(mean_data', 0); %econ size
 	errors = zeros(NUM_EIGEN, 1);
-	for i=1:NUM_EIGEN
-		eigenvectors = u(:,1:i); %17317 by i
-		for j=1:5
-			%result = linsolve(eigenvectors, mean_chosen5(j,:)');
+	for j=1:5
+		figure('Position',[100 100 900 300]);		
+		for i=1:NUM_EIGEN
+			eigenvectors = u(:,1:i); %17317 by i
 			result = eigenvectors' * mean_chosen5(j,:)';
 			scaled_eigenvectors = eigenvectors .* repmat(result(:,1)', 17317, 1);
 			face = sum(scaled_eigenvectors,2); %17317 by 1 face
@@ -22,19 +22,25 @@ function hw7q2b()
 				face = face + mean(data,1)';
         		full_im = zeros(size(mask(:,:,1)));
 				full_im(unmasked_pixels) = normalize_vec(chosen5(j,:)');
-				figure('Position',[100 100 600 300]);
-        		subplot(1,2,1);
+        		subplot(1,3,1);
         		imshow(full_im);
         		colormap(gray);
 				full_im = zeros(size(mask(:,:,1)));
 				full_im(unmasked_pixels) = normalize_vec(face);
-        		subplot(1,2,2);
+        		subplot(1,3,2);
+				imshow(full_im);
+				colormap(gray);
+			end
+			if i == 130
+				face = face + mean(data,1)';
+				full_im = zeros(size(mask(:,:,1)));
+				full_im(unmasked_pixels) = normalize_vec(face);
+        		subplot(1,3,3);
 				imshow(full_im);
 				colormap(gray);
 			end
 		end
 	end
-	errors
 	X = linspace(1, NUM_EIGEN, NUM_EIGEN);
 	figure;
 	title('Number of Eigenfaces v. Reconstruction L2 Error');

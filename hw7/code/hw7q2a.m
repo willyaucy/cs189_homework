@@ -5,7 +5,7 @@ function hw7q2a()
 	mean_data = data - repmat(mean(data,1), size(data,1), 1);
 	[u,s,v] = svd(mean_data', 0); %econ size
 	for i=1:10
-		eigenvector = u(:,i);
+		eigenvector = u(:,i)
 		full_im = zeros(size(mask(:,:,1)));
 		full_im(unmasked_pixels) = normalize_vec(eigenvector);
 		figure;
