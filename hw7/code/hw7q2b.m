@@ -1,5 +1,5 @@
 function hw7q2b()
-	NUM_EIGEN = 50;
+	NUM_EIGEN = 158;
 	load('mask.mat');
 	unmasked_pixels = find(mask(:,:,1));
 	data = preprocessCelebrityData(unmasked_pixels); % 158 x 17317
@@ -12,13 +12,14 @@ function hw7q2b()
 	errors = zeros(NUM_EIGEN, 1);
 	for i=1:NUM_EIGEN
 		eigenvectors = u(:,1:i); %17317 by i
-		result = mean_chosen5 * eigenvectors; %5 by i
 		for j=1:5
-			scaled_eigenvectors = eigenvectors .* repmat(result(j,:), 17317, 1);
+			%result = linsolve(eigenvectors, mean_chosen5(j,:)');
+			result = eigenvectors' * mean_chosen5(j,:)';
+			scaled_eigenvectors = eigenvectors .* repmat(result(:,1)', 17317, 1);
 			face = sum(scaled_eigenvectors,2); %17317 by 1 face
-			errors(i) = errors(i) + norm(face - mean_chosen5(j)') / 5;
-			if i==NUM_EIGEN
-				face = face + mean_chosen5(j,:)';
+			errors(i) = errors(i) + norm(face - mean_chosen5(j,:)') / 5;
+			if i==10
+				face = face + mean(data,1)';
         		full_im = zeros(size(mask(:,:,1)));
 				full_im(unmasked_pixels) = normalize_vec(chosen5(j,:)');
 				figure('Position',[100 100 600 300]);
@@ -33,6 +34,11 @@ function hw7q2b()
 			end
 		end
 	end
+	errors
+	X = linspace(1, NUM_EIGEN, NUM_EIGEN);
+	figure;
+	title('Number of Eigenfaces v. Reconstruction L2 Error');
+	plot(X, errors);
 
 function vec = normalize_vec(vec)
 	vec = vec ./ ( max(vec) - min(vec) );
