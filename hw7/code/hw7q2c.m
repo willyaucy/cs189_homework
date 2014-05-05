@@ -1,4 +1,4 @@
-function hw7q2b()
+function hw7q2c()
 	NUM_EIGEN = 158;
 	load('mask.mat');
 	unmasked_pixels = find(mask(:,:,1));
