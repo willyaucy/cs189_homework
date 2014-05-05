@@ -64,7 +64,7 @@ c) $k=20$ (continued):
 \end{figure}
 \newpage
 
-\section*{2. Eigenfaces (page 1 out of 6)}
+\section*{2. Eigenfaces (page 1 out of 7)}
 (a) The top 10 eigenfaces are as follows, ranked from 1 to 10:
 \\\\
 Top 1-5:
@@ -96,7 +96,7 @@ Top 6-10:
 Run hw7q2a in the code subdirectory if you want to see the implementation. (Shouldn't take more than 5 seconds).
 \newpage
 
-\section*{2. Eigenfaces (page 2 out of 6)}
+\section*{2. Eigenfaces (page 2 out of 7)}
 (b) To reconstruct the image, we need to first find the eigenfaces from part (b) by subtracting off the mean from each image and finding the SVD of the design matrix. Then, we want to find the weighting of the eigenvectors that most closely represents the actual image. To find the weighting, we basically project the original image onto the smaller subspace we found in SVD. We take the principal components (the first $k$ eigenvectors) and project our original image vector onto these $k$ eigenvectors. We randomly select 5 celebrity images to reconstruct. Below are the 5. Each set contains 3 images -- the first is the actual image. The second is using the first 10 eigenvectors, as stated in specs, and the third is using the first 130 eigenvectors. Note that it makes sense that the more eigenvectors we add, the better we should be at representing the image. Adding an additional dimension cannot decrease the distance away from the actual image since if it would have hurt us to use the dimension, we would have just zeroed it out. Hence, we expect better reconstruction with higher number of eigenvectors, which is what we get. \\\\
 Celebrity 1:
 \begin{figure}[ht!]
@@ -112,7 +112,7 @@ Celebrity 2:
 \end{figure}
 \newpage
 
-\section*{3. Eigenfaces (page 3 out of 6)}
+\section*{2. Eigenfaces (page 3 out of 7)}
 Celebrity 3:
 \begin{figure}[ht!]
 \centering
@@ -133,7 +133,7 @@ Celebrity 5:
 \end{figure}
 \newpage
 
-\section*{3. Eigenfaces (page 4 out of 6)}
+\section*{2. Eigenfaces (page 4 out of 7)}
 Analysis: The reconstructions are what we expect. Even with 10 eigenvectors, we can see the structure of the person's face. For example, the reconstruction of celebrity 1, who has a lot of facial hair and hair, is also showing signs of dark areas near the mouth and forehead. Celebrity 5, who is wearing glasses, gets a faint reconstruction of glasses with 10 eigenvectors. As we ramp up the number of eigenvectors to 130, we see that the reconstruction is nearly perfect. Here is a plot for the reconstruction L2 error (distance between the reconstructed face and the actual face) versus the top $k$ eigenvectors used. Note that the  error gradually decreases as we add more eigenvectors. When using all 158 eigenvectors, the reconstruction becomes perfect (0 error). \\
 \begin{figure}[ht!]
 \centering
@@ -142,6 +142,56 @@ Analysis: The reconstructions are what we expect. Even with 10 eigenvectors, we 
 \end{figure} \\
 Above: x-axis: number of eigenvectors, y-axis: L2 reconstruction error.
 \newpage
+
+\section*{2. Eigenfaces (page 5 out of 7)}
+(c) We randomly pick 5 student faces to reconstruct from the eigenvectors found from our celebrity database. Similarly, each student with have 3 images, the first being the actual image, the second being the reconstructed image with the top 20 celebrity eigenvectors (from the spces), and the third being the reconstructed image with all 158 celebrity eigenvectors. \\\\
+Student 1:
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=180mm]{images/student1.png}
+\label{overflow}
+\end{figure} \\
+Student 2:
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=180mm]{images/student2.png}
+\label{overflow}
+\end{figure}
+\newpage
+
+\section*{2. Eigenfaces (page 6 out of 7)}
+Student 3:
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=180mm]{images/student3.png}
+\label{overflow}
+\end{figure} \\
+Student 4:
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=180mm]{images/student4.png}
+\label{overflow}
+\end{figure} \\
+Student 5:
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=180mm]{images/student5.png}
+\label{overflow}
+\end{figure}
+\newpage
+
+\section*{2. Eigenfaces (page 7 out of 7)}
+Analysis: As expected, the reconstruction of images not seen by the PCA algorithm will not be perfectly reconstructed. This is because we're trying to represent a never-before seen image with only components from 158 celebrities. Though the reconstruction isn't perfect, the student reconstructions didn't turn out too poorly. With only 20 eigenvectors from the celebrity images, we can already see the structure of the students' faces. With 158 eigenvectors, the images turn out pretty nicely. For example, see student 3: his moustache and glasses show correctly. Here is a plot for the reconstruction L2 error (distance between the reconstructed face and the actual face) versus the top $k$ eigenvectors used. As stated above, the reconstruction error decreases, but it will not reach 0. \\
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=180mm]{images/hw7q2cerror.png}
+\label{overflow}
+\end{figure} \\
+Above: x-axis: number of eigenvectors, y-axis: L2 reconstruction error.
+\newpage
+
+
+
 \section*{3. SVD Practice (page 1 out of 4)}
 a) $ A = \begin{bmatrix}
 2 & 2 \\
