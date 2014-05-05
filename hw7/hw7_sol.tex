@@ -223,31 +223,6 @@ $ A - \lambda I = \begin{bmatrix}
 $det(A - \lambda I) = (8 - \lambda) (2 - \lambda)$. \\
 Setting the determinant equal to 0 and solving for $\lambda$, we get: $\lambda = 2, 8.$ \\\\
 Now we have to find the associated eigenvectors for each eigenvalue. Particularly, we're looking for a $v$ such that $Av = \lambda v$, or, in other words, $(A - \lambda I)v = 0$. \\\\
-Let $\lambda = 2$, then $(A - \lambda I) = \begin{bmatrix}
-8 - \lambda & 0 \\
-0 & 2 - \lambda \\
-\end{bmatrix} = \begin{bmatrix}
-6 & 0 \\
-0 & 0 \\
-\end{bmatrix}$. \\\\
-Letting $(A - \lambda I)v = 0$, we get that $ \begin{bmatrix}
-6 & 0 \\
-0 & 0 \\
-\end{bmatrix} \begin{bmatrix}
-v_0 \\
-v_1 \\
-\end{bmatrix} = \begin{bmatrix}
-6v_0 \\
-0 \\
-\end{bmatrix} = \begin{bmatrix}
-0 \\
-0 \\
-\end{bmatrix} $. \\\\
-For this equality to hold, $v_0$ must be 0. We want the vector to be orthonormal, so set $v_1 = 1$. \\\\
-Then: $v = \begin{bmatrix}
-0 \\
-1 \\
-\end{bmatrix}$ is an eigenvector for eigenvalue $\lambda = 2$. \\\\
 Let $\lambda = 8$, then $(A - \lambda I) = \begin{bmatrix}
 8 - \lambda & 0 \\
 0 & 2 - \lambda \\
@@ -273,20 +248,45 @@ Then: $v = \begin{bmatrix}
 1 \\
 0 \\
 \end{bmatrix}$ is an eigenvector for eigenvalue $\lambda = 8$. \\\\
+Let $\lambda = 2$, then $(A - \lambda I) = \begin{bmatrix}
+8 - \lambda & 0 \\
+0 & 2 - \lambda \\
+\end{bmatrix} = \begin{bmatrix}
+6 & 0 \\
+0 & 0 \\
+\end{bmatrix}$. \\\\
+Letting $(A - \lambda I)v = 0$, we get that $ \begin{bmatrix}
+6 & 0 \\
+0 & 0 \\
+\end{bmatrix} \begin{bmatrix}
+v_0 \\
+v_1 \\
+\end{bmatrix} = \begin{bmatrix}
+6v_0 \\
+0 \\
+\end{bmatrix} = \begin{bmatrix}
+0 \\
+0 \\
+\end{bmatrix} $. \\\\
+For this equality to hold, $v_0$ must be 0. We want the vector to be orthonormal, so set $v_1 = 1$. \\\\
+Then: $v = \begin{bmatrix}
+0 \\
+1 \\
+\end{bmatrix}$ is an eigenvector for eigenvalue $\lambda = 2$. \\\\
 We'll define $U$ as a 2x2 matrix, where each column contains the corresponding eigenvalues we found:
 Hence:
 $$ \boxed{ U = \begin{bmatrix} 
-v_{\lambda = 2} & v_{\lambda = 8} \\
+v_{\lambda = 8} & v_{\lambda = 2} \\
 \end{bmatrix} = \begin{bmatrix}
-0 & 1 \\
-1 & 0 \\
+1 & 0\\
+0 & 1\\
 \end{bmatrix}}$$
 \textbf{(2) Compute the entries of $\Sigma$ by calculating the positive square roots of the eigenvalues of $AA^T$.}
 \\\\
 Since we found the eigenvalues in part (1), we just take the square roots of them and place them in the diagonal matrix corresponding to the order of the eigenvectors in $U$.
-$$\boxed{\Sigma = diag(\sqrt2, \sqrt8) = \begin{bmatrix}
-\sqrt2 & 0 \\
-0 & 2 \sqrt2 \\
+$$\boxed{\Sigma = diag(\sqrt8, \sqrt2) = \begin{bmatrix}
+2\sqrt2 & 0 \\
+0 & \sqrt2 \\
 \end{bmatrix}} $$
 
 \newpage
@@ -318,31 +318,6 @@ $ A - \lambda I = \begin{bmatrix}
 $det(A - \lambda I) = (5 - \lambda)^2 - 9 = \lambda^2 - 10\lambda + 16 = (\lambda - 8)(\lambda - 2)$. \\
 Setting the determinant equal to 0 and solving for $\lambda$, we get: $\lambda = 2, 8.$ \\\\
 Now we have to find the associated eigenvectors for each eigenvalue. Particularly, we're looking for a $v$ such that $Av = \lambda v$, or, in other words, $(A - \lambda I)v = 0$. \\\\
-Let $\lambda = 2$, then $(A - \lambda I) = \begin{bmatrix}
-5 - \lambda & 3 \\
-3 & 5 - \lambda \\
-\end{bmatrix} = \begin{bmatrix}
-3 & 3 \\
-3 & 3 \\
-\end{bmatrix}$. \\\\
-Letting $(A - \lambda I)v = 0$, we get that $ \begin{bmatrix}
-3 & 3 \\
-3 & 3 \\
-\end{bmatrix} \begin{bmatrix}
-v_0 \\
-v_1 \\
-\end{bmatrix} = \begin{bmatrix}
-3v_0 + 3v_1 \\
-3v_0 + 3v_1 \\
-\end{bmatrix} = \begin{bmatrix}
-0 \\
-0 \\
-\end{bmatrix} $. \\\\
-For this equality to hold, $v_0 = -v_1$. We want the vector to be orthonormal, so set $v_0 = 1 / \sqrt2$ and $v_1 = - 1 / \sqrt2.$ \\\\
-Then: $v = \begin{bmatrix}
-1 / \sqrt2 \\
-- 1 / \sqrt2 \\
-\end{bmatrix}$ is an eigenvector for eigenvalue $\lambda = 2$. \\\\
 Let $\lambda = 8$, then $(A - \lambda I) = \begin{bmatrix}
 5 - \lambda & 3 \\
 3 & 5 - \lambda \\
@@ -368,32 +343,57 @@ Then: $v = \begin{bmatrix}
 1 / \sqrt2 \\
 1 / \sqrt2 \\
 \end{bmatrix}$ is an eigenvector for eigenvalue $\lambda = 8$. \\\\
+Let $\lambda = 2$, then $(A - \lambda I) = \begin{bmatrix}
+5 - \lambda & 3 \\
+3 & 5 - \lambda \\
+\end{bmatrix} = \begin{bmatrix}
+3 & 3 \\
+3 & 3 \\
+\end{bmatrix}$. \\\\
+Letting $(A - \lambda I)v = 0$, we get that $ \begin{bmatrix}
+3 & 3 \\
+3 & 3 \\
+\end{bmatrix} \begin{bmatrix}
+v_0 \\
+v_1 \\
+\end{bmatrix} = \begin{bmatrix}
+3v_0 + 3v_1 \\
+3v_0 + 3v_1 \\
+\end{bmatrix} = \begin{bmatrix}
+0 \\
+0 \\
+\end{bmatrix} $. \\\\
+For this equality to hold, $v_0 = -v_1$. We want the vector to be orthonormal, so set $v_0 = 1 / \sqrt2$ and $v_1 = - 1 / \sqrt2.$ \\\\
+Then: $v = \begin{bmatrix}
+1 / \sqrt2 \\
+- 1 / \sqrt2 \\
+\end{bmatrix}$ is an eigenvector for eigenvalue $\lambda = 2$. \\\\
 We'll define $V$ as a 2x2 matrix, where each column contains the corresponding eigenvalues we found:
 Hence:
 $$ \boxed{ V = \begin{bmatrix} 
-v_{\lambda = 2} & v_{\lambda = 8} \\
+v_{\lambda = 8} & v_{\lambda = 2} \\
 \end{bmatrix} = \begin{bmatrix}
 1 / \sqrt2 & 1 / \sqrt2 \\
--1 / \sqrt2 & 1 / \sqrt2 \\
+1 / \sqrt2 & -1 / \sqrt2 \\
 \end{bmatrix}}$$
 \textbf{(4) Verify that $A = U \Sigma V^T.$}
 $$\begin{aligned}
 U \Sigma V^T &= \begin{bmatrix}
-0 & 1 \\
 1 & 0 \\
+0 & 1 \\
 \end{bmatrix} \begin{bmatrix}
-\sqrt2 & 0 \\
-0 & 2 \sqrt2 \\
+2 \sqrt2 & 0 \\
+0 & \sqrt2 \\
 \end{bmatrix} \begin{bmatrix}
-1 / \sqrt2 & -1 / \sqrt2 \\
 1 / \sqrt2 & 1 / \sqrt2 \\
+1 / \sqrt2 & -1 / \sqrt2 \\
 \end{bmatrix} \\
 &= \begin{bmatrix}
-0 & 2 \sqrt2 \\
-\sqrt2 & 0 \\
+2 \sqrt2 & 0 \\
+0 & \sqrt2 \\
 \end{bmatrix} \begin{bmatrix}
-1 / \sqrt2 & -1 / \sqrt2 \\
 1 / \sqrt2 & 1 / \sqrt2 \\
+1 / \sqrt2 & -1 / \sqrt2 \\
 \end{bmatrix} \\
 &= \begin{bmatrix}
 2 & 2 \\
@@ -434,31 +434,6 @@ $ A - \lambda I = \begin{bmatrix}
 $det(A - \lambda I) = (8 - \lambda) (2 - \lambda) - 16 = \lambda^2 - 10\lambda + 16 - 16 = \lambda (\lambda - 10)$. \\
 Setting the determinant equal to 0 and solving for $\lambda$, we get: $\lambda = 0, 10.$ \\\\
 Now we have to find the associated eigenvectors for each eigenvalue. Particularly, we're looking for a $v$ such that $Av = \lambda v$, or, in other words, $(A - \lambda I)v = 0$. \\\\
-Let $\lambda = 0$, then $(A - \lambda I) = \begin{bmatrix}
-8 - \lambda & 4 \\
-4 & 2 - \lambda \\
-\end{bmatrix} = \begin{bmatrix}
-8 & 4 \\
-4 & 2 \\
-\end{bmatrix}$. \\\\
-Letting $(A - \lambda I)v = 0$, we get that $ \begin{bmatrix}
-8 & 4 \\
-4 & 2 \\
-\end{bmatrix} \begin{bmatrix}
-v_0 \\
-v_1 \\
-\end{bmatrix} = \begin{bmatrix}
-8v_0 + 4v_1 \\
-4v_0 + 2v_1 \\
-\end{bmatrix} = \begin{bmatrix}
-0 \\
-0 \\
-\end{bmatrix} $. \\\\
-For this equality to hold, $-2v_0 = v_1$. We want the vector to be orthonormal, so set $v_0 = 1 / \sqrt5$ and $v_1 = - 2 / \sqrt5.$ \\\\
-Then: $v = \begin{bmatrix}
-1 / \sqrt5 \\
--2 / \sqrt5 \\
-\end{bmatrix}$ is an eigenvector for eigenvalue $\lambda = 0$. \\\\
 Let $\lambda = 10$, then $(A - \lambda I) = \begin{bmatrix}
 8 - \lambda & 4 \\
 4 & 2 - \lambda \\
@@ -484,20 +459,45 @@ Then: $v = \begin{bmatrix}
 2 / \sqrt5 \\
 1 / \sqrt5 \\
 \end{bmatrix}$ is an eigenvector for eigenvalue $\lambda = 10$. \\\\
+Let $\lambda = 0$, then $(A - \lambda I) = \begin{bmatrix}
+8 - \lambda & 4 \\
+4 & 2 - \lambda \\
+\end{bmatrix} = \begin{bmatrix}
+8 & 4 \\
+4 & 2 \\
+\end{bmatrix}$. \\\\
+Letting $(A - \lambda I)v = 0$, we get that $ \begin{bmatrix}
+8 & 4 \\
+4 & 2 \\
+\end{bmatrix} \begin{bmatrix}
+v_0 \\
+v_1 \\
+\end{bmatrix} = \begin{bmatrix}
+8v_0 + 4v_1 \\
+4v_0 + 2v_1 \\
+\end{bmatrix} = \begin{bmatrix}
+0 \\
+0 \\
+\end{bmatrix} $. \\\\
+For this equality to hold, $-2v_0 = v_1$. We want the vector to be orthonormal, so set $v_0 = 1 / \sqrt5$ and $v_1 = - 2 / \sqrt5.$ \\\\
+Then: $v = \begin{bmatrix}
+1 / \sqrt5 \\
+-2 / \sqrt5 \\
+\end{bmatrix}$ is an eigenvector for eigenvalue $\lambda = 0$. \\\\
 We'll define $U$ as a 2x2 matrix, where each column contains the corresponding eigenvalues we found:
 Hence:
 $$ \boxed{ U = \begin{bmatrix} 
-v_{\lambda = 0} & v_{\lambda = 10} \\
+v_{\lambda = 10} & v_{\lambda = 0} \\
 \end{bmatrix} = \begin{bmatrix}
-1 / \sqrt5 & 2 / \sqrt5 \\
--2 / \sqrt5 & 1 / \sqrt5 \\
+2 / \sqrt5 & 1 / \sqrt5 \\
+1 / \sqrt5 & -2 / \sqrt5 \\
 \end{bmatrix}}$$
 \textbf{(2) Compute the entries of $\Sigma$ by calculating the positive square roots of the eigenvalues of $AA^T$.}
 \\\\
 Since we found the eigenvalues in part (1), we just take the square roots of them and place them in the diagonal matrix corresponding to the order of the eigenvectors in $U$.
-$$\boxed{\Sigma = diag(0, \sqrt{10}) = \begin{bmatrix}
+$$\boxed{\Sigma = diag(\sqrt{10}, 0) = \begin{bmatrix}
+\sqrt{10} & 0 \\
 0 & 0 \\
-0 & \sqrt{10} \\
 \end{bmatrix}} $$
 
 \newpage
@@ -529,31 +529,6 @@ $ A - \lambda I = \begin{bmatrix}
 $det(A - \lambda I) = (5 - \lambda)^2 - 25 = \lambda^2 - 10\lambda + 25 - 25 = \lambda(\lambda - 10)$. \\
 Setting the determinant equal to 0 and solving for $\lambda$, we get: $\lambda = 0, 10.$ \\\\
 Now we have to find the associated eigenvectors for each eigenvalue. Particularly, we're looking for a $v$ such that $Av = \lambda v$, or, in other words, $(A - \lambda I)v = 0$. \\\\
-Let $\lambda = 0$, then $(A - \lambda I) = \begin{bmatrix}
-5 - \lambda & 5 \\
-5 & 5 - \lambda \\
-\end{bmatrix} = \begin{bmatrix}
-5 & 5 \\
-5 & 5 \\
-\end{bmatrix}$. \\\\
-Letting $(A - \lambda I)v = 0$, we get that $ \begin{bmatrix}
-5 & 5 \\
-5 & 5 \\
-\end{bmatrix} \begin{bmatrix}
-v_0 \\
-v_1 \\
-\end{bmatrix} = \begin{bmatrix}
-5v_0 + 5v_1 \\
-5v_0 + 5v_1 \\
-\end{bmatrix} = \begin{bmatrix}
-0 \\
-0 \\
-\end{bmatrix} $. \\\\
-For this inequality to hold, $v_0 = -v_1$. We want the vector to be orthonormal, so set $v_0 = 1 / \sqrt2$ and $v_1 = - 1 / \sqrt2.$ \\\\
-Then: $v = \begin{bmatrix}
-1 / \sqrt2 \\
-- 1 / \sqrt2 \\
-\end{bmatrix}$ is an eigenvector for eigenvalue $\lambda = 0$. \\\\
 Let $\lambda = 10$, then $(A - \lambda I) = \begin{bmatrix}
 5 - \lambda & 5 \\
 5 & 5 - \lambda \\
@@ -579,32 +554,57 @@ Then: $v = \begin{bmatrix}
 1 / \sqrt2 \\
 1 / \sqrt2 \\
 \end{bmatrix}$ is an eigenvector for eigenvalue $\lambda = 10$. \\\\
+Let $\lambda = 0$, then $(A - \lambda I) = \begin{bmatrix}
+5 - \lambda & 5 \\
+5 & 5 - \lambda \\
+\end{bmatrix} = \begin{bmatrix}
+5 & 5 \\
+5 & 5 \\
+\end{bmatrix}$. \\\\
+Letting $(A - \lambda I)v = 0$, we get that $ \begin{bmatrix}
+5 & 5 \\
+5 & 5 \\
+\end{bmatrix} \begin{bmatrix}
+v_0 \\
+v_1 \\
+\end{bmatrix} = \begin{bmatrix}
+5v_0 + 5v_1 \\
+5v_0 + 5v_1 \\
+\end{bmatrix} = \begin{bmatrix}
+0 \\
+0 \\
+\end{bmatrix} $. \\\\
+For this inequality to hold, $v_0 = -v_1$. We want the vector to be orthonormal, so set $v_0 = 1 / \sqrt2$ and $v_1 = - 1 / \sqrt2.$ \\\\
+Then: $v = \begin{bmatrix}
+1 / \sqrt2 \\
+- 1 / \sqrt2 \\
+\end{bmatrix}$ is an eigenvector for eigenvalue $\lambda = 0$. \\\\
 We'll define $V$ as a 2x2 matrix, where each column contains the corresponding eigenvalues we found:
 Hence:
 $$ \boxed{ V = \begin{bmatrix} 
-v_{\lambda = 0} & v_{\lambda = 10} \\
+v_{\lambda = 10} & v_{\lambda = 0} \\
 \end{bmatrix} = \begin{bmatrix}
 1 / \sqrt2 & 1 / \sqrt2 \\
--1 / \sqrt2 & 1 / \sqrt2 \\
+1 / \sqrt2 & -1 / \sqrt2 \\
 \end{bmatrix}}$$
 \textbf{(4) Verify that $A = U \Sigma V^T.$}
 $$\begin{aligned}
 U \Sigma V^T &=\begin{bmatrix}
-1 / \sqrt5 & 2 / \sqrt5 \\
--2 / \sqrt5 & 1 / \sqrt5 \\
+2 / \sqrt5 & 1 / \sqrt5 \\
+1 / \sqrt5 & -2 / \sqrt5 \\
 \end{bmatrix} \begin{bmatrix}
+\sqrt{10} & 0 \\
 0 & 0 \\
-0 & \sqrt{10} \\
 \end{bmatrix} \begin{bmatrix}
-1 / \sqrt2 & -1 / \sqrt2 \\
 1 / \sqrt2 & 1 / \sqrt2 \\
+1 / \sqrt2 & -1 / \sqrt2 \\
 \end{bmatrix} \\
 &= \begin{bmatrix}
-0 & 2 \sqrt2 \\
-0 & \sqrt2 \\
+2 \sqrt2 & 0\\
+\sqrt2 & 0 \\
 \end{bmatrix} \begin{bmatrix}
-1 / \sqrt2 & -1 / \sqrt2 \\
 1 / \sqrt2 & 1 / \sqrt2 \\
+1 / \sqrt2 & -1 / \sqrt2 \\
 \end{bmatrix} \\
 &= \begin{bmatrix}
 2 & 2 \\
