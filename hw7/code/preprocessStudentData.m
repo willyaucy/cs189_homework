@@ -2,8 +2,7 @@ function data=preprocessStudentData(unmasked_pixels)
 	data = [];
 	filenames = ls('../StudentDatabase');
 	if size(filenames, 1) == 1 %unix computer
-		filenamelist = regexp(filenames, '\t', 'split');
-		filenames = filenamelist';
+        filenames = getAllFiles('../StudentDatabase');
 	end
 	for i=1:size(filenames, 1)
 		filename = strtrim(filenames(i,:));
